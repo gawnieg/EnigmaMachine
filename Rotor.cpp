@@ -9,7 +9,10 @@ using namespace std;
 
 
     Rotor::Rotor(const char* filename, const char* pos_file){
-        sets_position =true;
+        
+		cout << "using overloaded rotor constructor" <<endl;
+		
+		sets_position =true;
         ifstream in_pos;
         in_pos.open(pos_file);
         if(!in_pos){
@@ -88,7 +91,12 @@ using namespace std;
         for(int i =0; i < counter; i++){
 
                     cout << "the rotorarray member  is " << rotorarray[i] <<endl;
-        }
+                        if(i%2!=0 ){
+							cout<<"----------"<<endl;
+						}
+		
+		
+		}
 
         //cout << "rotor is now initialised" <<endl;
 
@@ -149,9 +157,53 @@ using namespace std;
         for(int i =0; i < counter; i++){
 
                     cout << "the rotorarray member  is " << rotorarray[i] <<endl;
-        }
+                        if(i%2!=0 ){
+							cout<<"----------"<<endl;
+						}
+		}
 
         //cout << "rotor is now initialised" <<endl;
 
 
     }//end ofrotor constructor
+	
+char Rotor::in_out(char input_char){
+		int input_int;
+    cout << "passed character to rotor is " << input_char << endl;
+    cout << "which as an integer is " << (int)input_char - 65 << endl;
+    input_int= (int)input_char - 65 ;
+	
+	    //find what index number input is on the pbarray
+    int index_match=0;
+    bool index_m = false;
+
+
+
+    while(index_m==false){ //check these conditions
+        if(rotorarray[index_match]== input_int ){
+            index_m=true;
+            break;
+        }
+
+        index_match++;
+
+    }
+	cout << "index match is " << index_match <<endl;
+	
+	if(index_match%2 != 0){// if the match is uneven you will want to look at the element before it
+		//the converted character will be pbarray +1
+		cout <<"odd therefore return the previous one" <<endl;
+		cout << "rotorarray return is " << rotorarray[(index_match - 1)] << endl; // 2 as is zero indexed!
+		cout << "which is the character " << (char)(rotorarray[(index_match - 1)] +65) << endl;
+		return (char)(rotorarray[index_match - 1] +65);
+	}
+	
+	if(index_match%2 == 0){
+
+		cout <<"even therefore return the next one, which is" <<endl;
+		cout << "rotorarray return is " << rotorarray[(index_match + 1)] << endl;
+		return (char)(rotorarray[index_match + 1] + 65);
+	}
+
+	return index_match;
+}

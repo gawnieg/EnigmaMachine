@@ -19,7 +19,7 @@ Plugboard::Plugboard(const char* filename){
 
         //printing for testing
 
-        int counter=0;
+
 
         while(!in.eof()){
 
@@ -66,9 +66,63 @@ Plugboard::Plugboard(const char* filename){
     //printing array - debugging
     for(int i =0; i < counter; i++){
 
-                cout << "the pbarray member  is " << pbarray[i] <<endl;
+                cout << "the pbarray member  is " << pbarray[i] <<"   which is " << i<< endl;
+                if(i%2!=0 ){
+                    cout<<"----------"<<endl;
+                }
+
     }
-
-
-
 }//end of constructor
+
+
+char Plugboard::plugboard_convert(char input_char){
+
+int input_int;
+    cout << "passed character to plugboard is " << input_char << endl;
+    cout << "which as an integer is " << (int)input_char - 65 << endl;
+    input_int= (int)input_char - 65 ;
+
+    //find what index number input is on the pbarray
+    int index_match=0;
+    bool index_m = false;
+
+
+    cout <<"array size is " << counter << endl;
+
+    while(index_m==false && index_match < counter){ //check these conditions
+        if(pbarray[index_match]== input_int ){
+            index_m=true;
+            break;
+        }
+
+        index_match++;
+
+    }
+cout << "index match is " << index_match <<endl;
+
+if(index_match==20){
+    //map to themself!
+    return input_char;
+}
+
+
+
+if(index_match%2 != 0){// if the match is uneven you will want to look at the element before it
+    //the converted character will be pbarray +1
+    cout <<"odd therefore return the previous one" <<endl;
+    cout << "pbarray return is " << pbarray[(index_match - 1)] << endl; // 2 as is zero indexed!
+    cout << "which is the character " << (char)(pbarray[(index_match - 1)] +65) << endl;
+    return (char)(pbarray[index_match - 1] +65);
+
+}
+if(index_match%2 == 0){
+
+    cout <<"even therefore return the next one, which is" <<endl;
+    cout << "pbarray return is " << pbarray[(index_match + 1)] << endl;
+    return (char)(pbarray[index_match + 1] + 65);
+}
+
+    return index_match;// is this right?
+
+
+}
