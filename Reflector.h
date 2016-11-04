@@ -1,7 +1,13 @@
-#include <iostream>
 
 #ifndef REFLECTOR_H
 #define REFLECTOR_H
+
+
+#include <iostream>
+#include "Plugboard.h"
+#include "Enigma.h"
+#include "Rotor.h"
+
 
 using namespace std;
 

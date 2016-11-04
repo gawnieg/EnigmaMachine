@@ -68,7 +68,7 @@ using namespace std;
                     cerr << "INVALID_INDEX" << rotorarray[counter]  << endl;
                 }
                 //check for duplicates
-                for(int i =0; i<counter; i++ ){
+                for(int i =0; i<(counter-1); i++ ){ //counter -1 to account for the fact that the rotate marker is included
                     for(int j=0; j < i; j++){
                         if(rotorarray[i]==rotorarray[j]){
                             cerr << "INVALID_ROTOR_MAPPING" /*<< " at " << j << "and "<< i */ << endl;
@@ -79,6 +79,9 @@ using namespace std;
                 counter++;
 
             }
+		//setting the last character as the rotate marker
+		rotate_marker=rotorarray[26];
+		cout << "rotate marker is" <<rotate_marker << endl;
 
         if(counter != 27){
             cerr<<  "INVALID_ROTOR_MAPPING" << endl;
@@ -88,7 +91,7 @@ using namespace std;
 
 
         //printing array - debugging
-        for(int i =0; i < counter; i++){
+        for(int i =0; i < (counter-1); i++){
 
                     cout << "the rotorarray member  is " << rotorarray[i] <<endl;
                         if(i%2!=0 ){
@@ -145,7 +148,13 @@ using namespace std;
                 counter++;
 
             }
+			
+		//setting the last character as the rotate marker
+		rotate_marker=rotorarray[26];
+		cout << "rotate marker is" <<rotate_marker << endl;
 
+		
+		
         if(counter != 27){
             cerr<<  "INVALID_ROTOR_MAPPING" << endl;
         }
@@ -154,7 +163,7 @@ using namespace std;
 
 
         //printing array - debugging
-        for(int i =0; i < counter; i++){
+        for(int i =0; i < (counter-1); i++){
 
                     cout << "the rotorarray member  is " << rotorarray[i] <<endl;
                         if(i%2!=0 ){
@@ -201,9 +210,11 @@ char Rotor::in_out(char input_char){
 	if(index_match%2 == 0){
 
 		cout <<"even therefore return the next one, which is" <<endl;
-		cout << "rotorarray return is " << rotorarray[(index_match + 1)] << endl;
+		cout << "rotorarray in function return is " << rotorarray[(index_match + 1)] << endl;
+		cout << "rotorarray in function return cast to char is " << (char)rotorarray[(index_match + 1)] << endl;
 		return (char)(rotorarray[index_match + 1] + 65);
 	}
-
+	cout <<"should not reach here" <<endl;
+	
 	return index_match;
 }

@@ -1,7 +1,16 @@
-#include <iostream>
+
 
 #ifndef PLUGBOARD_H
 #define PLUGBOARD_H
+
+#include <iostream>
+#include "Rotor.h"
+#include "Enigma.h"
+#include "Reflector.h"
+
+
+
+
 
 using namespace std;
 

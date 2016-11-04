@@ -1,5 +1,5 @@
-enigma: main.o Rotor.o Plugboard.o Reflector.o
-	g++ -g -Wall main.o Rotor.o Plugboard.o Reflector.o -o enigma
+enigma: main.o Rotor.o Plugboard.o Reflector.o Enigma.o
+	g++ -g -Wall main.o Rotor.o Plugboard.o Reflector.o Enigma.o -o enigma
 
 main.o: main.cpp Rotor.h Plugboard.h
 	g++ -g -Wall -c main.cpp
@@ -12,3 +12,6 @@ Plugboard.o: Plugboard.cpp Plugboard.h
 
 Reflector.o: Reflector.cpp Reflector.h
 	g++ -g -Wall -c Reflector.cpp
+
+Enigma.o: Enigma.cpp Enigma.h Reflector.h Plugboard.h Rotor.h
+	g++ -g -Wall -c Enigma.cpp

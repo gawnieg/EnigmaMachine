@@ -1,7 +1,14 @@
-#include <iostream>
-
 #ifndef ROTOR_H
 #define ROTOR_H
+
+
+#include <iostream>
+#include "Plugboard.h"
+#include "Enigma.h"
+#include "Reflector.h"
+
+
+
 
 using namespace std;
 
@@ -24,6 +31,7 @@ private:
 int rotorarray[30];
 int pos_array[5];
 bool sets_position = false;
+int rotate_marker=0; //marker for where the rotor rotates from
 
 };
 
