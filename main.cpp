@@ -27,7 +27,7 @@ int main(int argc, char** argv){
 
 
 int sizeofargumentlistpassed=argc-1;// minus one as executable counted!
-cout << sizeofargumentlistpassed << " arguments have been passed!" <<endl;
+cout << sizeofargumentlistpassed << " arguments have been passed!!!" <<endl;
 cout << "number of rotors = " << sizeofargumentlistpassed - 3 << endl; /* as
 plugboard, reflector and rotor position file must be uploaded)*/
 
