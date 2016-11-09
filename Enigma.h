@@ -18,13 +18,13 @@ class Enigma{
 public:
     //constructors
     Enigma(Plugboard* plugboard, Reflector* reflector, Rotor* rotorarray[2], int numberofrotors);
-	char one_way(char input_char);
+
 
 	Plugboard* plugboard;
 	Reflector* reflector;
 	Rotor* rotorarray[5];
 
-    void one_turn();
+    
     char encode(char input_char_to_be_encrypted);
 
 

@@ -28,9 +28,6 @@ Enigma::Enigma(Plugboard* _plugboard, Reflector* _reflector, Rotor* _rotorarray[
 
 
 }
-void Enigma::one_turn(){
-    rotorarray[0]->rotate();
-}
 
 char Enigma::encode(char input_char_to_be_encrypted){
     /* this function should take in the input character and pass it through the
@@ -138,38 +135,3 @@ char Enigma::encode(char input_char_to_be_encrypted){
 
     return transfer_char;
 } // end bracket for encode function
-
-
-
-
-char Enigma::one_way(char input_char){ // replaced by encode function?
-
-
-
-
-/*
-   cout << "before plugboard-------------------------------------------------------" << endl;
-   char char_after_plugboard;
-   char_after_plugboard=plugboard->plugboard_convert(input_char);
-
-
-   cout<< "back in main before rotor1 is----------------------------------"  << endl;
-   char char_after_rotor1;
-	char_after_rotor1=rotorarray[0]->in_out(char_after_plugboard);//if array of rotors will not be rotor1 anymore!
-
-
-   //cout<< "back in main after rotor1 is " << rotor2->in_out(char_after_rotor1) << endl;
-   cout << "before rotor2----------------------------------" <<endl;
-   char char_after_rotor2;
-   char_after_rotor2 = rotorarray[1]->in_out(char_after_rotor1);
-   //cout<< "back in main char after rotor is " << char_after_rotor2 <<endl;
-
-
-   cout << "before reflector------------------------------------------" << endl;
-   char char_after_reflector;
-   char_after_reflector = reflector->reflect(char_after_rotor2);
-
-   cout << "Character after plugboard, rotor1 and rotor2 and reflector is " << char_after_reflector <<endl;
-*/
-
-}
