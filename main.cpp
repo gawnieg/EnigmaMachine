@@ -80,6 +80,11 @@ Enigma enigma(plugb,reflec,rotor_r, sizeofargumentlistpassed); // the 2 is the n
 //enigma.one_turn();
 //testing out new array structures
 char input_char;
+string input_sentance;
+cout << "please input an input character, type . to exit" << endl;
+
+
+
 while(input_char != '.'){
     cout << "please input an input character, type . to exit" << endl;
     cin >> input_char;
@@ -91,3 +96,12 @@ while(input_char != '.'){
 
 
 } //END OF MAIN
+
+/*
+To Do:
+1. be able to pass in strings from the commmand LINE
+2. construct enigma so that it can have unlimited rotors.
+3.  update error code. isdigit is also not functioning correctly.
+
+
+*/
