@@ -5,7 +5,7 @@
 
 
 Reflector::Reflector(const char* filename){
-	
+
     cout << "up in the reflector constructor " << filename <<endl;
     ifstream in;
     in.open(filename);
@@ -63,12 +63,12 @@ Reflector::Reflector(const char* filename){
 }//end of constructor
 
 char Reflector::reflect(char input_char){
-	
+
 	int input_int;
     cout << "passed character to reflector is " << input_char << endl;
     cout << "which as an integer is " << (int)input_char - 65 << endl;
     input_int= (int)input_char - 65 ;
-	
+
 	    //find what index number input is on the pbarray
     int index_match=0;
     bool index_m = false;
@@ -85,7 +85,7 @@ char Reflector::reflect(char input_char){
 
     }
 cout << "index match is " << index_match <<endl;
-	
+
 	if(index_match%2 != 0){// if the match is uneven you will want to look at the element before it
 		//the converted character will be pbarray +1
 		cout <<"odd therefore return the previous one" <<endl;
@@ -93,7 +93,7 @@ cout << "index match is " << index_match <<endl;
 		cout << "which is the character " << (char)(rfarray[(index_match - 1)] +65) << endl;
 		return (char)(rfarray[index_match - 1] +65);
 	}
-	
+
 	if(index_match%2 == 0){
 
 		cout <<"even therefore return the next one, which is" <<endl;
@@ -102,6 +102,5 @@ cout << "index match is " << index_match <<endl;
 	}
 
 	return index_match;
-	
-}
 
+}

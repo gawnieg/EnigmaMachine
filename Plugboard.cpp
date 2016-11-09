@@ -100,7 +100,7 @@ int input_int;
     }
 cout << "index match is " << index_match <<endl;
 
-if(index_match==20){
+if(index_m ==false){
     //map to themself!
     return input_char;
 }

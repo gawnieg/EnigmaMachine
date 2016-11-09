@@ -8,19 +8,19 @@ using namespace std;
 
 
 
-    Rotor::Rotor(const char* filename, const char* pos_file){
-        
-		cout << "using overloaded rotor constructor" <<endl;
-		
+    Rotor::Rotor(const char* filename, const char* pos_file, int rotornumber){
+
 		sets_position =true;
         ifstream in_pos;
         in_pos.open(pos_file);
         if(!in_pos){
-            cout <<"input stream failed" <<endl;
+            cout <<"input stream failed for in_pos" <<endl;
         }
         int pos_counter=0;
         while(!in_pos.eof()){
-            in_pos >>ws >>  pos_array[pos_counter];
+            in_pos  >>  pos_array[pos_counter];
+			//cout << "reading pos array" << endl;
+			//cout << "counter is " << pos_counter << endl;
 
             if(in_pos.rdstate()>0){
                 break;
@@ -33,9 +33,10 @@ using namespace std;
             }
             pos_counter++;
         }
+
         for(int i =0; i < pos_counter; i++){
 
-                    cout << "the pos_array member  is " << pos_array[pos_counter] <<endl;
+                    cout << "the pos_array member  is " << pos_array[i] <<endl;
         }
         in_pos.close();
 
@@ -89,24 +90,56 @@ using namespace std;
 
         in.close();
 
-
+        cout << "printing upon construction " << endl;
         //printing array - debugging
         for(int i =0; i < (counter-1); i++){
 
-                    cout << "the rotorarray member  is " << rotorarray[i] <<endl;
-                        if(i%2!=0 ){
-							cout<<"----------"<<endl;
-						}
-		
-		
-		}
+            cout << "the rotorarray member  is " << rotorarray[i]  << " at index " << i  <<endl;
 
-        //cout << "rotor is now initialised" <<endl;
+        }
+
+    //moving
+
+        cout << "the rotor number is  " <<rotornumber <<endl;
+        int initialrotationsindex = 0;
+        //change this to sizeofarray - x
+        if(rotornumber == 1){
+            initialrotationsindex = 2;
+        }
+        if(rotornumber == 2){
+            initialrotationsindex = 1;
+        }
+        if(rotornumber == 3){
+            initialrotationsindex = 0;
+        }
+
+        // plus one as position file is read from left to right
+        cout << "the offset required is : " << pos_array[initialrotationsindex] << endl;
+
+        for (int i =0; i < pos_array[initialrotationsindex]; i++) {
+    			int temp=0;
+
+        		for(int i =25; i > -1  ; i--){
+        			temp=rotorarray[25];
+        			rotorarray[25]=rotorarray[i];
+        			rotorarray[i]=temp;
+                }
+        }
+        cout << "printing after position initialisation " << endl;
+                //printing array - debugging
+                for(int i =0; i < (counter-1); i++){
+
+                cout << "the rotorarray member  is " << rotorarray[i] << " at index " << i <<endl;
+
+            }
+
+        cout << "rotor is now initialised" <<endl;
 
 
     }//end ofrotor constructor with position array
 
-    Rotor::Rotor(const char* filename){ //overloading Rotor constructor, this one has no position
+//consider deleting as need to send position array to all rotors!!!
+    Rotor::Rotor(const char* filename, int rotornumber){ //overloading Rotor constructor, this one has no position
 
         cout << "up in the rotor constructor " << filename <<endl;
         ifstream in;
@@ -148,13 +181,13 @@ using namespace std;
                 counter++;
 
             }
-			
+
 		//setting the last character as the rotate marker
 		rotate_marker=rotorarray[26];
 		cout << "rotate marker is" <<rotate_marker << endl;
 
-		
-		
+
+
         if(counter != 27){
             cerr<<  "INVALID_ROTOR_MAPPING" << endl;
         }
@@ -165,28 +198,115 @@ using namespace std;
         //printing array - debugging
         for(int i =0; i < (counter-1); i++){
 
-                    cout << "the rotorarray member  is " << rotorarray[i] <<endl;
-                        if(i%2!=0 ){
-							cout<<"----------"<<endl;
-						}
+                    cout << "the rotorarray member  is " << rotorarray[i] << " at index " << i << endl;
+
 		}
+        //section added to initialise the position of the rotor
+        cout << "the rotor number is  " <<rotornumber <<endl;
+        int initialrotationsindex = 0; // this is the index to extract a number from the pos_array
+        //change this to sizeofarray - x
+        if(rotornumber == 1){
+            initialrotationsindex = 2;
+        }
+        if(rotornumber == 2){
+            initialrotationsindex = 1;
+        }
+        if(rotornumber == 3){
+            initialrotationsindex = 0;
+        }
+        cout << "the rotor number is  " <<rotornumber <<endl;
+        cout << "pos_array 0 is" << pos_array[0] << endl;
+        cout << "pos_array 1 is" << pos_array[1] << endl;
+        cout << "pos_array 2 is" << pos_array[2] << endl;
+
+
+        // plus one as position file is read from left to right
+        cout << "the offset required is : " << pos_array[initialrotationsindex] << endl;
+
+        //this loop is rotating the rotor array the required number of times for initialisation
+        for (int i =0; i < pos_array[initialrotationsindex]; i++) {
+    			int temp=0;
+
+        		for(int i =25; i > -1 ; i--){
+        			temp=rotorarray[25];
+        			rotorarray[25]=rotorarray[i];
+        			rotorarray[i]=temp;
+                }
+        }
+        cout << "printing after position initialisation " << endl;
+                //printing array - debugging
+                for(int i =0; i < (counter-1); i++){
+
+                cout << "the rotorarray member  is " << rotorarray[i] <<endl;
+
+            }
 
         //cout << "rotor is now initialised" <<endl;
 
 
     }//end ofrotor constructor
-	
-char Rotor::in_out(char input_char){
-		int input_int;
-    cout << "passed character to rotor is " << input_char << endl;
+
+char Rotor::in_out(char input_char, bool way_back){
+
+    //if way_back ==true then different mapping is required
+
+	int input_int;
+    cout << "Rotor: passed character to rotor is " << input_char << endl;
     cout << "which as an integer is " << (int)input_char - 65 << endl;
     input_int= (int)input_char - 65 ;
-	
-	    //find what index number input is on the pbarray
-    int index_match=0;
-    bool index_m = false;
+
+	//returniing the letter at that index which is the matching letter
+	/*
+	rotor/I.rot
+	4 at index 0 (A)
+	10 at index 1 (B)
+	12 at index 2 (C)
+	13 at index 3 (D)
+	etc.
+
+	also change back into char by +65 as is integer value
+	*/
+    for(int i=0; i<26; i++){
+        cout << "Rotor:in_out:" << rotorarray[i] << " at element " <<i  <<endl;
+    }
 
 
+
+	cout << "IN_OUT has found the matching number to be " << rotorarray[input_int] << " which as an char is " << (char)(rotorarray[input_int]+65) <<endl;
+
+
+    //consider adding a return part
+    // look through the rotor array varied side and mark to to the index_
+
+    if(way_back == true){
+        bool rotorarraymatch=false;
+        int index_match_back=0;
+
+        while(rotorarraymatch == false){
+            if(rotorarray[index_match_back] == input_int){
+                rotorarraymatch=true;
+                break;
+            }
+            index_match_back++;
+        }
+
+    return (char)(index_match_back + 65);
+    }
+
+
+
+/////////////////end of backward section
+
+
+
+    //this is what should be returned if is on the way out to the reflector -forwards
+	return (char)(rotorarray[input_int]+65);
+
+
+
+
+
+	/* OLD FUNCTION FOR MATCHING AS PAIRS!
 
     while(index_m==false){ //check these conditions
         if(rotorarray[index_match]== input_int ){
@@ -198,7 +318,7 @@ char Rotor::in_out(char input_char){
 
     }
 	cout << "index match is " << index_match <<endl;
-	
+
 	if(index_match%2 != 0){// if the match is uneven you will want to look at the element before it
 		//the converted character will be pbarray +1
 		cout <<"odd therefore return the previous one" <<endl;
@@ -206,7 +326,7 @@ char Rotor::in_out(char input_char){
 		cout << "which is the character " << (char)(rotorarray[(index_match - 1)] +65) << endl;
 		return (char)(rotorarray[index_match - 1] +65);
 	}
-	
+
 	if(index_match%2 == 0){
 
 		cout <<"even therefore return the next one, which is" <<endl;
@@ -215,6 +335,51 @@ char Rotor::in_out(char input_char){
 		return (char)(rotorarray[index_match + 1] + 65);
 	}
 	cout <<"should not reach here" <<endl;
-	
+
 	return index_match;
+	*/
+
+}//end bracket for in_out
+
+
+bool Rotor::rotate(){
+
+
+	cout <<"Rotor.Rotate STARTING 1 ROTATE FOR ROTOR!" <<endl;
+	cout << "printing array before" <<endl;
+	for(int i=0; i<26; i++){
+		cout << rotorarray[i] << " at element " <<i  <<endl;
+	}
+	//rotate array function - 1 standard step.
+
+	int temp=0;
+
+	for(int i =25; i > -1 ; i--){
+		temp=rotorarray[25];
+		rotorarray[25]=rotorarray[i];
+		rotorarray[i]=temp;
+	}
+
+
+	//printing array
+	cout <<"printing array after rotation" <<endl;
+
+	for(int i=0; i<26; i++){
+		cout << rotorarray[i] << " at element " <<i  <<endl;
+    }
+
+
+    /*could set flag that indicates when notch has been reached
+    and then send flag to enigma class indicating that it should rotate the next
+    rotor . true if notch reached, false if not */
+
+    if(rotorarray[0] == rotate_marker){
+        return true;
+
+    }
+    else {
+        return false;
+    }
+
+
 }

@@ -17,7 +17,7 @@ class InputSwitches{
 };
 
 class Outboard{
-    };
+};
 
 
 
@@ -26,89 +26,68 @@ class Outboard{
 int main(int argc, char** argv){
 
 
-//cout << "What was passed was " << argv[1] << endl;
+int sizeofargumentlistpassed=argc-1;// minus one as executable counted!
+cout << sizeofargumentlistpassed << " arguments have been passed!" <<endl;
+cout << "number of rotors = " << sizeofargumentlistpassed - 3 << endl; /* as
+plugboard, reflector and rotor position file must be uploaded)*/
+
+int rotornumber = 1;
+
 Plugboard *plugb = new Plugboard(argv[1]);//will need to error check to see if this is the right array member being passed
 Reflector *reflec = new Reflector(argv[2]);
-Rotor *rotor1 = new Rotor(argv[3]);
-cout << "adding rotor2" <<endl;
-Rotor *rotor2 = new Rotor(argv[4]);
- cout << "rotor2 should be added" <<endl;
+Rotor* rotor_r[5] = {NULL, NULL, NULL, NULL,NULL};
 
-Rotor* rotor_r[2] = {rotor1,rotor2};
+if((sizeofargumentlistpassed - 3) ==1){
+    Rotor *rotor1 = new Rotor(argv[3],argv[4], rotornumber);
+    rotor_r[0]= rotor1;
 
-int sizeofrotorarray = 2;
+}
+if((sizeofargumentlistpassed - 3) ==2){
+    Rotor *rotor1 = new Rotor(argv[4],argv[5], rotornumber);
+    Rotor *rotor2 = new Rotor(argv[3],argv[5],rotornumber);
+    rotor_r[0]= rotor1;
+    rotor_r[1]= rotor2;
+}
+if((sizeofargumentlistpassed - 3) ==3){
+    Rotor *rotor1 = new Rotor(argv[5],argv[6], rotornumber); // was argv[3]
+    Rotor *rotor2 = new Rotor(argv[4],argv[6],rotornumber); //was argv[4]
+    Rotor *rotor3 = new Rotor(argv[3],argv[6],rotornumber);
+    rotor_r[0]= rotor1;
+    rotor_r[1]= rotor2;
+    rotor_r[2]= rotor3;
 
-Enigma enigma(plugb,reflec,rotor_r, sizeofrotorarray); // the 2 is the number of rotors
+
+}
+if ((sizeofargumentlistpassed - 3) ==4){
+    Rotor *rotor1 = new Rotor(argv[6],argv[7], rotornumber);
+    Rotor *rotor2 = new Rotor(argv[5],argv[7],rotornumber);
+    Rotor *rotor3 = new Rotor(argv[4],argv[7],rotornumber);
+    Rotor *rotor4 = new Rotor(argv[3],argv[7],rotornumber);
+    rotor_r[0]= rotor1;
+    rotor_r[1]= rotor2;
+    rotor_r[2]= rotor3;
+    rotor_r[3]=rotor4;
+}
 
 
+cout << "sizeofargumentlistpassed is " << sizeofargumentlistpassed << endl;
+sizeofargumentlistpassed = sizeofargumentlistpassed-3;
+
+cout << "creating enigma object " << endl;
+Enigma enigma(plugb,reflec,rotor_r, sizeofargumentlistpassed); // the 2 is the number of rotors
 
 
-
-
-//beginning input and testing
+//enigma.one_turn();
+//testing out new array structures
 char input_char;
 while(input_char != '.'){
     cout << "please input an input character, type . to exit" << endl;
     cin >> input_char;
-
-
-	cout<< "returned from enigma one way is " << enigma.Enigma::one_way(input_char)<<endl;
-
-
-    /*
-		cout << "before plugboard-------------------------------------------------------" << endl;
-	char char_after_plugboard;
-	char_after_plugboard=plugb->plugboard_convert(input_char);
-
-
-	cout<< "back in main before rotor1 is----------------------------------"  << endl;
-	char char_after_rotor1;
-	char_after_rotor1=rotor1->in_out(char_after_plugboard);
-
-
-	//cout<< "back in main after rotor1 is " << rotor2->in_out(char_after_rotor1) << endl;
-	cout << "before rotor2----------------------------------" <<endl;
-	char char_after_rotor2;
-	char_after_rotor2 = rotor2->in_out(char_after_rotor1);
-	//cout<< "back in main char after rotor is " << char_after_rotor2 <<endl;
-
-
-	cout << "before reflector------------------------------------------" << endl;
-	char char_after_reflector;
-	char_after_reflector = reflec->reflect(char_after_rotor2);
-
-	cout << "Character after plugboard, rotor1 and rotor2 and reflector is " << char_after_reflector <<endl;
-	cout << "-------------------------------------------" <<endl;
-	char way_back_after_rotor2;
-	way_back_after_rotor2 = rotor2->in_out(char_after_reflector);
-	cout << "-------------------------------------------" <<endl;
-	char way_back_after_rotor1; //also before plugboard
-	way_back_after_rotor1 = rotor1->in_out(way_back_after_rotor2);
-	cout << "-------------------------------------------" <<endl;
-	char light_up;
-	light_up=plugb->plugboard_convert(way_back_after_rotor1);
-
-	cout << "The code the germans write down is " << plugb->plugboard_convert(way_back_after_rotor1) <<endl;
-
-    */
-
-
-
-
-
-
-
-
-
-
-
+    cout << "encoded character is : " << enigma.encode(input_char) << endl;
 
 
 }
 
 
 
-//send this to the plugboard object, some function that converts it to whatever wired output should give
-
-
-}
+} //END OF MAIN

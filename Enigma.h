@@ -22,12 +22,15 @@ public:
 
 	Plugboard* plugboard;
 	Reflector* reflector;
-	Rotor* rotorarray[2];
-	int rotorindex;
+	Rotor* rotorarray[5];
+
+    void one_turn();
+    char encode(char input_char_to_be_encrypted);
+
 
 
 private:
-
+int rotorindex =0;
 
 
 
