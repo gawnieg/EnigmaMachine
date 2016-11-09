@@ -3,10 +3,14 @@
 #include <cstring>
 #include "Reflector.h"
 
+//#define COMMENTS_ON
 
 Reflector::Reflector(const char* filename){
-
+    #ifdef COMMENTS_ON
     cout << "up in the reflector constructor " << filename <<endl;
+    #endif
+
+
     ifstream in;
     in.open(filename);
         if(!in){
@@ -50,13 +54,15 @@ Reflector::Reflector(const char* filename){
         if(counter != 26){
             cerr<<  "INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS" << endl;
         }
+        #ifdef COMMENTS_ON
         for(int i =0; i < counter; i++){
 
                     cout << "the rfarray member  is " << rfarray[i] <<endl;
 					if(i%2!=0 ){
-						cout<<"----------"<<endl;
+						cout<<"---------"<<endl;
 					}
         }
+        #endif
         in.close();
 
 
@@ -65,8 +71,11 @@ Reflector::Reflector(const char* filename){
 char Reflector::reflect(char input_char){
 
 	int input_int;
+    #ifdef COMMENTS_ON
     cout << "passed character to reflector is " << input_char << endl;
     cout << "which as an integer is " << (int)input_char - 65 << endl;
+    #endif
+
     input_int= (int)input_char - 65 ;
 
 	    //find what index number input is on the pbarray
@@ -84,20 +93,25 @@ char Reflector::reflect(char input_char){
         index_match++;
 
     }
-cout << "index match is " << index_match <<endl;
+    #ifdef COMMENTS_ON
+    cout << "index match is " << index_match <<endl;
+    #endif
 
 	if(index_match%2 != 0){// if the match is uneven you will want to look at the element before it
 		//the converted character will be pbarray +1
+        #ifdef COMMENTS_ON
 		cout <<"odd therefore return the previous one" <<endl;
 		cout << "pbarray return is " << rfarray[(index_match - 1)] << endl; // 2 as is zero indexed!
 		cout << "which is the character " << (char)(rfarray[(index_match - 1)] +65) << endl;
-		return (char)(rfarray[index_match - 1] +65);
+        #endif
+        return (char)(rfarray[index_match - 1] +65);
 	}
 
 	if(index_match%2 == 0){
-
+        #ifdef COMMENTS_ON
 		cout <<"even therefore return the next one, which is" <<endl;
 		cout << "pbarray return is " << rfarray[(index_match + 1)] << endl;
+        #endif
 		return (char)(rfarray[index_match + 1] + 65);
 	}
 

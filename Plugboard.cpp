@@ -5,6 +5,7 @@
 
 using namespace std;
 
+//#define COMMENTS_ON
 
 
 Plugboard::Plugboard(const char* filename){
@@ -62,7 +63,7 @@ Plugboard::Plugboard(const char* filename){
 
     in.close();
 
-
+    #ifdef COMMENTS_ON
     //printing array - debugging
     for(int i =0; i < counter; i++){
 
@@ -72,22 +73,29 @@ Plugboard::Plugboard(const char* filename){
                 }
 
     }
+    #endif
+
 }//end of constructor
 
 
 char Plugboard::plugboard_convert(char input_char){
 
 int input_int;
+    #ifdef COMMENTS_ON
     cout << "passed character to plugboard is " << input_char << endl;
     cout << "which as an integer is " << (int)input_char - 65 << endl;
+    #endif
+
     input_int= (int)input_char - 65 ;
 
     //find what index number input is on the pbarray
     int index_match=0;
     bool index_m = false;
 
-
+    #ifdef COMMENTS_ON
     cout <<"array size is " << counter << endl;
+    #endif
+
 
     while(index_m==false && index_match < counter){ //check these conditions
         if(pbarray[index_match]== input_int ){
@@ -98,7 +106,9 @@ int input_int;
         index_match++;
 
     }
-cout << "index match is " << index_match <<endl;
+    #ifdef COMMENTS_ON
+    cout << "index match is " << index_match <<endl;
+    #endif
 
 if(index_m ==false){
     //map to themself!
@@ -109,16 +119,20 @@ if(index_m ==false){
 
 if(index_match%2 != 0){// if the match is uneven you will want to look at the element before it
     //the converted character will be pbarray +1
+    #ifdef COMMENTS_ON
     cout <<"odd therefore return the previous one" <<endl;
     cout << "pbarray return is " << pbarray[(index_match - 1)] << endl; // 2 as is zero indexed!
     cout << "which is the character " << (char)(pbarray[(index_match - 1)] +65) << endl;
+    #endif
     return (char)(pbarray[index_match - 1] +65);
 
 }
 if(index_match%2 == 0){
-
+    #ifdef COMMENTS_ON
     cout <<"even therefore return the next one, which is" <<endl;
     cout << "pbarray return is " << pbarray[(index_match + 1)] << endl;
+    #endif
+
     return (char)(pbarray[index_match + 1] + 65);
 }
 

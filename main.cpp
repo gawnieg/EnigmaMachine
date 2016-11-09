@@ -1,15 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <string>
 #include "Rotor.h"
 #include "Plugboard.h"
 #include "Reflector.h"
 #include "Enigma.h"
+#include <algorithm>
 
 
 
 using namespace std;
 
+string delSpaces(string &str);
 
 
 
@@ -27,8 +30,8 @@ int main(int argc, char** argv){
 
 
 int sizeofargumentlistpassed=argc-1;// minus one as executable counted!
-cout << sizeofargumentlistpassed << " arguments have been passed!!!" <<endl;
-cout << "number of rotors = " << sizeofargumentlistpassed - 3 << endl; /* as
+cout << sizeofargumentlistpassed << "Main: arguments have been passed!!!" <<endl;
+cout << "Main: number of rotors = " << sizeofargumentlistpassed - 3 << endl; /* as
 plugboard, reflector and rotor position file must be uploaded)*/
 
 int rotornumber = 1;
@@ -70,10 +73,10 @@ if ((sizeofargumentlistpassed - 3) ==4){
 }
 
 
-cout << "sizeofargumentlistpassed is " << sizeofargumentlistpassed << endl;
+cout << "Main: sizeofargumentlistpassed is " << sizeofargumentlistpassed << endl;
 sizeofargumentlistpassed = sizeofargumentlistpassed-3;
 
-cout << "creating enigma object " << endl;
+cout << "Main:creating enigma object " << endl;
 Enigma enigma(plugb,reflec,rotor_r, sizeofargumentlistpassed); // the 2 is the number of rotors
 
 
@@ -81,21 +84,61 @@ Enigma enigma(plugb,reflec,rotor_r, sizeofargumentlistpassed); // the 2 is the n
 //testing out new array structures
 char input_char;
 string input_sentance;
-cout << "please input an input character, type . to exit" << endl;
+cout << "please input an sentence to be encrypted, terminated by a full stop" << endl;
+cin  >> input_sentance;
+cout << "the sentence before modification " << input_sentance <<endl;
+input_sentance=delSpaces(input_sentance);
+cout << "the converted sentence is " << input_sentance <<endl;
 
+
+
+
+
+int a=0;
+char encrypted_sentence [100];
 
 
 while(input_char != '.'){
-    cout << "please input an input character, type . to exit" << endl;
-    cin >> input_char;
-    cout << "encoded character is : " << enigma.encode(input_char) << endl;
 
+    input_char = input_sentance[a];
+    cout << "the int versionof the character is " << (int)input_char <<endl;
+    if( ((int)input_char < 65) || ((int)input_char >122) || (((int)input_char >90) && ((int)input_char <97)) ){
+        break;
+    }
+
+    cout << "The "<< a <<" charcter from sentence is " << input_char << endl;
+    cout << "The encrypted character is " << enigma.encode(input_char) <<endl;
+    encrypted_sentence[a] = enigma.encode(input_char);
+    //cout << "encoded character is : " << enigma.encode(input_char) << endl;
+    a++;
 
 }
+
+cout << "The encrypted_sentence is " <<endl;
+for(int i=0; i<input_sentance.length(); i++){
+    cout << encrypted_sentence[i];
+}
+
+cout << endl; //print blank line at end for readability
 
 
 
 } //END OF MAIN
+
+string delSpaces(string &str)
+{
+   // str.erase(remove(str.begin(), str.end(), ' '), str.end());
+cout << str << endl;
+   for(int i=0; i<str.length(); i++){
+      if(str[i] == ' ') str.erase(i,1);
+      cout << "i is " << i << endl;
+   }
+
+     cout << str << endl;
+    return str;
+}
+
+
 
 /*
 To Do:

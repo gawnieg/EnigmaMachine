@@ -3,8 +3,11 @@
 #include <cstring>
 #include "Rotor.h"
 
+//#define COMMENTS_ON
+
 
 using namespace std;
+
 
 
 
@@ -90,6 +93,8 @@ using namespace std;
 
         in.close();
 
+
+        #ifdef COMMENTS_ON
         cout << "printing upon construction " << endl;
         //printing array - debugging
         for(int i =0; i < (counter-1); i++){
@@ -97,12 +102,13 @@ using namespace std;
             cout << "the rotorarray member  is " << rotorarray[i]  << " at index " << i  <<endl;
 
         }
+        #endif
 
     //moving
 
         cout << "the rotor number is  " <<rotornumber <<endl;
         int initialrotationsindex = 0;
-        //change this to sizeofarray - x
+        //change this to sizeofarray - x. This is currently the
         if(rotornumber == 1){
             initialrotationsindex = 2;
         }
@@ -125,6 +131,7 @@ using namespace std;
         			rotorarray[i]=temp;
                 }
         }
+        #ifdef COMMENTS_ON
         cout << "printing after position initialisation " << endl;
                 //printing array - debugging
                 for(int i =0; i < (counter-1); i++){
@@ -134,6 +141,7 @@ using namespace std;
             }
 
         cout << "rotor is now initialised" <<endl;
+        #endif
 
 
     }//end ofrotor constructor with position array
@@ -194,13 +202,15 @@ using namespace std;
 
         in.close();
 
-
+        #ifdef COMMENTS_ON
         //printing array - debugging
         for(int i =0; i < (counter-1); i++){
 
                     cout << "the rotorarray member  is " << rotorarray[i] << " at index " << i << endl;
 
 		}
+        #endif
+
         //section added to initialise the position of the rotor
         cout << "the rotor number is  " <<rotornumber <<endl;
         int initialrotationsindex = 0; // this is the index to extract a number from the pos_array
@@ -233,6 +243,7 @@ using namespace std;
         			rotorarray[i]=temp;
                 }
         }
+        #ifdef COMMENTS_ON
         cout << "printing after position initialisation " << endl;
                 //printing array - debugging
                 for(int i =0; i < (counter-1); i++){
@@ -241,7 +252,8 @@ using namespace std;
 
             }
 
-        //cout << "rotor is now initialised" <<endl;
+        cout << "rotor is now initialised" <<endl;
+        #endif
 
 
     }//end ofrotor constructor
@@ -251,8 +263,11 @@ char Rotor::in_out(char input_char, bool way_back){
     //if way_back ==true then different mapping is required
 
 	int input_int;
+    #ifdef COMMENTS_ON
     cout << "Rotor: passed character to rotor is " << input_char << endl;
     cout << "which as an integer is " << (int)input_char - 65 << endl;
+    #endif
+
     input_int= (int)input_char - 65 ;
 
 	//returniing the letter at that index which is the matching letter
@@ -266,14 +281,13 @@ char Rotor::in_out(char input_char, bool way_back){
 
 	also change back into char by +65 as is integer value
 	*/
+    #ifdef COMMENTS_ON
     for(int i=0; i<26; i++){
         cout << "Rotor:in_out:" << rotorarray[i] << " at element " <<i  <<endl;
     }
 
-
-
 	cout << "IN_OUT has found the matching number to be " << rotorarray[input_int] << " which as an char is " << (char)(rotorarray[input_int]+65) <<endl;
-
+    #endif
 
     //consider adding a return part
     // look through the rotor array varied side and mark to to the index_
@@ -346,10 +360,12 @@ bool Rotor::rotate(){
 
 
 	cout <<"Rotor.Rotate STARTING 1 ROTATE FOR ROTOR!" <<endl;
+    #ifdef COMMENTS_ON
 	cout << "printing array before" <<endl;
 	for(int i=0; i<26; i++){
 		cout << rotorarray[i] << " at element " <<i  <<endl;
 	}
+    #endif
 	//rotate array function - 1 standard step.
 
 	int temp=0;
@@ -360,14 +376,14 @@ bool Rotor::rotate(){
 		rotorarray[i]=temp;
 	}
 
-
+    #ifdef COMMENTS_ON
 	//printing array
 	cout <<"printing array after rotation" <<endl;
 
 	for(int i=0; i<26; i++){
 		cout << rotorarray[i] << " at element " <<i  <<endl;
     }
-
+    #endif
 
     /*could set flag that indicates when notch has been reached
     and then send flag to enigma class indicating that it should rotate the next

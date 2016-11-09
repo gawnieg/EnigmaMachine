@@ -6,6 +6,10 @@
 #include "Rotor.h"
 #include "Reflector.h"
 
+// #define COMMENTS_ON
+// #define STEP_COMMENTS_ON
+
+
 Enigma::Enigma(Plugboard* _plugboard, Reflector* _reflector, Rotor* _rotorarray[], int _numberofrotors ){
 //constructor for enigma
 
@@ -37,12 +41,17 @@ char Enigma::encode(char input_char_to_be_encrypted){
     */
 
     ///temporary section until get rotorindex functioning correctly in the constructor
+    #ifdef COMMENTS_ON
     cout << "counting number of rotors " << endl;
+    #endif
+
     int count_temp=0;
     while (rotorarray[count_temp]!=NULL){
         count_temp++;
     }
+    #ifdef COMMENTS_ON
     cout << "number of rotors is " << count_temp<<  endl;
+    #endif
 
     bool rotate_next_rotor_1 = rotorarray[0]->rotate();
     bool rotate_next_rotor_2 = false; // for moving rotor 3
@@ -54,7 +63,7 @@ char Enigma::encode(char input_char_to_be_encrypted){
     }
     if(rotate_next_rotor_2 == true && count_temp>2){
         cout << "rotate rotor 3 is required !!!" << endl;
-        rotate_next_rotor_3 = rotorarray[1]->rotate();
+        rotate_next_rotor_3 = rotorarray[2]->rotate();
     }
 
 
@@ -64,69 +73,105 @@ char Enigma::encode(char input_char_to_be_encrypted){
     //could have if statements in here depending on the amount of rotors the machine is setup with
 
     if(count_temp ==1){ // for one rotor
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending to plugboard " << endl;
+        #endif
+
         transfer_char = plugboard->plugboard_convert(input_char_to_be_encrypted);
 
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor1" << endl;
-        transfer_char = rotorarray[0]->in_out(transfer_char,false);
+        #endif
 
+        transfer_char = rotorarray[0]->in_out(transfer_char,false);
         transfer_char = reflector->reflect(transfer_char);
 
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: passed back from rotor 1 was "<< transfer_char << endl;
+        #endif
+
         transfer_char = rotorarray[0]->in_out(transfer_char,true); //sending to rotor 1
 
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: about to enter plugboard "<< transfer_char << endl;
+        #endif
+
         transfer_char = plugboard->plugboard_convert(transfer_char);
     }
 
     if(count_temp ==2){ // for 2 rotors
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending to plugboard " << endl;
+        #endif
         transfer_char = plugboard->plugboard_convert(input_char_to_be_encrypted);
 
-        cout << "Encode: sending char to in_out rotor1" << endl;
-        transfer_char = rotorarray[0]->in_out(transfer_char,false);
+        #ifdef STEP_COMMENTS_ON
 
+        cout << "Encode: sending char to in_out rotor1" << endl;
+        #endif
+        transfer_char = rotorarray[0]->in_out(transfer_char,false);
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor2" << endl;
+        #endif
         transfer_char = rotorarray[1]->in_out(transfer_char,false);
 
         transfer_char = reflector->reflect(transfer_char);
 
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: passed back from reflector was "<< transfer_char << endl;
+        #endif
         transfer_char = rotorarray[1]->in_out(transfer_char,true); //sending to rotor 1
 
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor1" << endl;
+        #endif
         transfer_char = rotorarray[0]->in_out(transfer_char,true);
 
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: about to enter plugboard "<< transfer_char << endl;
+        #endif
+
         transfer_char = plugboard->plugboard_convert(transfer_char);
     }
 
     if(count_temp ==3){ // for 3 rotors
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending to plugboard " << endl;
+        #endif
+
         transfer_char = plugboard->plugboard_convert(input_char_to_be_encrypted);
-
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor1" << endl;
+        #endif
+
         transfer_char = rotorarray[0]->in_out(transfer_char,false);
-
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor2" << endl;
+        #endif
         transfer_char = rotorarray[1]->in_out(transfer_char,false);
-
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor3" << endl;
+        #endif
         transfer_char = rotorarray[2]->in_out(transfer_char,false);
 
         transfer_char = reflector->reflect(transfer_char);
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: passed back from reflector was "<< transfer_char << endl;
-
         cout << "Encode: sending char to in_out rotor3" << endl;
+        #endif
+
         transfer_char = rotorarray[2]->in_out(transfer_char,true);
-
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: passed back from reflector was "<< transfer_char << endl;
+        #endif
         transfer_char = rotorarray[1]->in_out(transfer_char,true); //sending to rotor 1
-
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor1" << endl;
+        #endif
         transfer_char = rotorarray[0]->in_out(transfer_char,true);
-
+        #ifdef STEP_COMMENTS_ON
         cout << "Encode: about to enter plugboard "<< transfer_char << endl;
+        #endif
         transfer_char = plugboard->plugboard_convert(transfer_char);
     }
 
