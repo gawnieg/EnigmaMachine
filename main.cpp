@@ -85,10 +85,12 @@ Enigma enigma(plugb,reflec,rotor_r, sizeofargumentlistpassed); // the 2 is the n
 char input_char;
 string input_sentance;
 cout << "please input an sentence to be encrypted, terminated by a full stop" << endl;
-cin  >> input_sentance;
+cin  >>ws>>  input_sentance;
+/*
 cout << "the sentence before modification " << input_sentance <<endl;
 input_sentance=delSpaces(input_sentance);
 cout << "the converted sentence is " << input_sentance <<endl;
+*/
 
 
 
@@ -101,6 +103,9 @@ char encrypted_sentence [100];
 while(input_char != '.'){
 
     input_char = input_sentance[a];
+    if(input_char == '.'){
+        break;
+    }
     cout << "the int versionof the character is " << (int)input_char <<endl;
     if( ((int)input_char < 65) || ((int)input_char >122) || (((int)input_char >90) && ((int)input_char <97)) ){
         break;
@@ -115,7 +120,7 @@ while(input_char != '.'){
 }
 
 cout << "The encrypted_sentence is " <<endl;
-for(int i=0; i<input_sentance.length(); i++){
+for(int i=0; i<input_sentance.length()-1; i++){
     cout << encrypted_sentence[i];
 }
 
