@@ -13,5 +13,5 @@ Plugboard.o: Plugboard.cpp Plugboard.h
 Reflector.o: Reflector.cpp Reflector.h
 	g++ -g -Wall -c Reflector.cpp
 
-Enigma.o: Enigma.cpp Enigma.h Reflector.h Plugboard.h Rotor.h
+Enigma.o: Enigma.cpp Enigma.h
 	g++ -g -Wall -c Enigma.cpp

@@ -4,9 +4,7 @@
 #define PLUGBOARD_H
 
 #include <iostream>
-#include "Rotor.h"
-#include "Enigma.h"
-#include "Reflector.h"
+
 
 
 

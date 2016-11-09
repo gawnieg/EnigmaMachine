@@ -3,9 +3,6 @@
 
 
 #include <iostream>
-#include "Plugboard.h"
-#include "Enigma.h"
-#include "Reflector.h"
 
 
 

@@ -7,6 +7,7 @@
 #include "Enigma.h"
 
 
+
 using namespace std;
 
 
@@ -39,28 +40,22 @@ int sizeofrotorarray = 2;
 
 Enigma enigma(plugb,reflec,rotor_r, sizeofrotorarray); // the 2 is the number of rotors
 
- 
- 
- //add to Engima object. Plugboard rotor and reflector
+
+
+
+
 
 //beginning input and testing
 char input_char;
 while(input_char != '.'){
     cout << "please input an input character, type . to exit" << endl;
     cin >> input_char;
-	
-	enigma.one_way(input_char);
-	
-	
-	
-	
-	
-	
-	
-	
 
-	//cout<< "returned from enigma one way is " << Enigma::one_way(input_char)<<endl;
-	/*
+
+	cout<< "returned from enigma one way is " << enigma.Enigma::one_way(input_char)<<endl;
+
+
+    /*
 		cout << "before plugboard-------------------------------------------------------" << endl;
 	char char_after_plugboard;
 	char_after_plugboard=plugb->plugboard_convert(input_char);
@@ -83,8 +78,21 @@ while(input_char != '.'){
 	char_after_reflector = reflec->reflect(char_after_rotor2);
 
 	cout << "Character after plugboard, rotor1 and rotor2 and reflector is " << char_after_reflector <<endl;
+	cout << "-------------------------------------------" <<endl;
+	char way_back_after_rotor2;
+	way_back_after_rotor2 = rotor2->in_out(char_after_reflector);
+	cout << "-------------------------------------------" <<endl;
+	char way_back_after_rotor1; //also before plugboard
+	way_back_after_rotor1 = rotor1->in_out(way_back_after_rotor2);
+	cout << "-------------------------------------------" <<endl;
+	char light_up;
+	light_up=plugb->plugboard_convert(way_back_after_rotor1);
 
-*/
+	cout << "The code the germans write down is " << plugb->plugboard_convert(way_back_after_rotor1) <<endl;
+
+    */
+
+
 
 
 

@@ -4,9 +4,7 @@
 
 
 #include <iostream>
-#include "Plugboard.h"
-#include "Enigma.h"
-#include "Rotor.h"
+
 
 
 using namespace std;

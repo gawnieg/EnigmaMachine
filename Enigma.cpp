@@ -11,13 +11,14 @@ Enigma::Enigma(Plugboard* _plugboard, Reflector* _reflector, Rotor* _rotorarray[
 
 plugboard = _plugboard;
 reflector = _reflector;
-Rotor* rotorarray[] = _rotorarray[];
+rotorarray = _rotorarray;
+
 rotorindex = _numberofrotors -1; //minus one so can be used directly as an index
 
 
 
-	
-	
+
+
 }
 
 
@@ -47,5 +48,3 @@ char_after_rotor1=rotorarray[0]->in_out(char_after_plugboard);//if array of roto
 
    cout << "Character after plugboard, rotor1 and rotor2 and reflector is " << char_after_reflector <<endl;
 }
-
-
