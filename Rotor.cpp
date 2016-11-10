@@ -148,8 +148,9 @@ using namespace std;
 
 //consider deleting as need to send position array to all rotors!!!
     Rotor::Rotor(const char* filename, int rotornumber){ //overloading Rotor constructor, this one has no position
-
+        #ifdef COMMENTS_ON
         cout << "up in the rotor constructor " << filename <<endl;
+        #endif
         ifstream in;
         in.open(filename);
             if(!in){
@@ -192,8 +193,9 @@ using namespace std;
 
 		//setting the last character as the rotate marker
 		rotate_marker=rotorarray[26];
+        #ifdef COMMENTS_ON
 		cout << "rotate marker is" <<rotate_marker << endl;
-
+        #endif
 
 
         if(counter != 27){
@@ -209,10 +211,13 @@ using namespace std;
                     cout << "the rotorarray member  is " << rotorarray[i] << " at index " << i << endl;
 
 		}
-        #endif
+
 
         //section added to initialise the position of the rotor
         cout << "the rotor number is  " <<rotornumber <<endl;
+
+        #endif
+
         int initialrotationsindex = 0; // this is the index to extract a number from the pos_array
         //change this to sizeofarray - x
         if(rotornumber == 1){
@@ -224,6 +229,7 @@ using namespace std;
         if(rotornumber == 3){
             initialrotationsindex = 0;
         }
+        #ifdef COMMENTS_ON
         cout << "the rotor number is  " <<rotornumber <<endl;
         cout << "pos_array 0 is" << pos_array[0] << endl;
         cout << "pos_array 1 is" << pos_array[1] << endl;
@@ -232,7 +238,7 @@ using namespace std;
 
         // plus one as position file is read from left to right
         cout << "the offset required is : " << pos_array[initialrotationsindex] << endl;
-
+        #endif
         //this loop is rotating the rotor array the required number of times for initialisation
         for (int i =0; i < pos_array[initialrotationsindex]; i++) {
     			int temp=0;
@@ -358,9 +364,9 @@ char Rotor::in_out(char input_char, bool way_back){
 
 bool Rotor::rotate(){
 
-
-	cout <<"Rotor.Rotate STARTING 1 ROTATE FOR ROTOR!" <<endl;
     #ifdef COMMENTS_ON
+	cout <<"Rotor.Rotate STARTING 1 ROTATE FOR ROTOR!" <<endl;
+
 	cout << "printing array before" <<endl;
 	for(int i=0; i<26; i++){
 		cout << rotorarray[i] << " at element " <<i  <<endl;

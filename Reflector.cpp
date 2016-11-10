@@ -3,7 +3,7 @@
 #include <cstring>
 #include "Reflector.h"
 
-//#define COMMENTS_ON
+// #define COMMENTS_ON
 
 Reflector::Reflector(const char* filename){
     #ifdef COMMENTS_ON

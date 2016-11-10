@@ -16,13 +16,15 @@ Enigma::Enigma(Plugboard* _plugboard, Reflector* _reflector, Rotor* _rotorarray[
     plugboard = _plugboard;
     reflector = _reflector;
     cout << " _numberofrotors is " << _numberofrotors << endl; //debugging
-    rotorindex = _numberofrotors -1; //minus one so can be used directly as an index
+    cout << "Rotor index" << rotor_index_enigma <<endl;
 
+    rotor_index_enigma = _numberofrotors -1; //minus one so can be used directly as an index
+    cout << " rotorindex is " << rotor_index_enigma << endl;
     for(int i=0; i <6; i++){ // up to 5 rotor members
         rotorarray[i] = _rotorarray[i]; //THIS LINE IS PROBLEMATIC, what am i trying to do here?
     }
-    cout << " rotorindex is " << rotorindex << endl;
 
+    cout << " rotorindex is (1)     " << rotor_index_enigma << endl;
 
 
 

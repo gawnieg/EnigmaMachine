@@ -17,20 +17,20 @@ class Enigma{
 
 public:
     //constructors
-    Enigma(Plugboard* plugboard, Reflector* reflector, Rotor* rotorarray[2], int numberofrotors);
+    Enigma(Plugboard* plugboard, Reflector* reflector, Rotor* rotorarray[5], int numberofrotors);
 
 
 	Plugboard* plugboard;
 	Reflector* reflector;
 	Rotor* rotorarray[5];
 
-    
+
     char encode(char input_char_to_be_encrypted);
 
 
 
 private:
-int rotorindex =0;
+signed int rotor_index_enigma =0;
 
 
 

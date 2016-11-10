@@ -32,6 +32,7 @@ Plugboard::Plugboard(const char* filename){
             //check if everything is a digit
             if(isdigit(pbarray[counter])==true){
                 cerr<< "NON_NUMERIC_CHARACTER" <<endl;
+                
             }
             //check for outside of range
             if(pbarray[counter]> 25 ||pbarray[counter]<0 ){
