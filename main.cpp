@@ -121,7 +121,7 @@ while(input_char != '.'){
 }
 
 cout << "The encrypted_sentence is " <<endl;
-for(int i=0; i<input_sentance.length()-1; i++){
+for(unsigned int i=0; i<input_sentance.length()-1; i++){
     cout << encrypted_sentence[i];
 }
 
@@ -135,7 +135,7 @@ string delSpaces(string &str)
 {
    // str.erase(remove(str.begin(), str.end(), ' '), str.end());
 cout << str << endl;
-   for(int i=0; i<str.length(); i++){
+   for(unsigned int i=0; i<str.length(); i++){
       if(str[i] == ' ') str.erase(i,1);
       cout << "i is " << i << endl;
    }

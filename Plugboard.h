@@ -17,13 +17,14 @@ class Plugboard{
 
 public:
     //constructors
-    Plugboard(const char* filename);
-    char plugboard_convert(char input);
+Plugboard(const char* filename);
+
 
 
 
 private:
 
+char plugboard_convert(char input);
 int pbarray[26];
 int counter=0;
 
