@@ -3,7 +3,7 @@
 #include <cstring>
 #include "Rotor.h"
 
-// #define COMMENTS_ON
+#define COMMENTS_ON
 
 
 using namespace std;
@@ -97,11 +97,7 @@ using namespace std;
         #ifdef COMMENTS_ON
         cout << "printing upon construction " << endl;
         //printing array - debugging
-        for(int i =0; i < (counter-1); i++){
-
-            cout << "the rotorarray member  is " << rotorarray[i]  << " at index " << i  <<endl;
-
-        }
+        printrotorarray(rotorarray);
         #endif
 
     //moving
@@ -133,13 +129,7 @@ using namespace std;
         }
         #ifdef COMMENTS_ON
         cout << "printing after position initialisation " << endl;
-                //printing array - debugging
-                for(int i =0; i < (counter-1); i++){
-
-                cout << "the rotorarray member  is " << rotorarray[i] << " at index " << i <<endl;
-
-            }
-
+        printrotorarray(rotorarray);
         cout << "rotor is now initialised" <<endl;
         #endif
 
@@ -203,6 +193,7 @@ using namespace std;
         }
 
         in.close();
+
 
         #ifdef COMMENTS_ON
         //printing array - debugging
@@ -288,10 +279,7 @@ char Rotor::in_out(char input_char, bool way_back){
 	also change back into char by +65 as is integer value
 	*/
     #ifdef COMMENTS_ON
-    for(int i=0; i<26; i++){
-        cout << "Rotor:in_out:" << rotorarray[i] << " at element " <<i  <<endl;
-    }
-
+    printrotorarray(rotorarray);
 	cout << "IN_OUT has found the matching number to be " << rotorarray[input_int] << " which as an char is " << (char)(rotorarray[input_int]+65) <<endl;
     #endif
 
@@ -363,16 +351,13 @@ bool Rotor::rotate(){
 
     #ifdef COMMENTS_ON
 	cout <<"Rotor.Rotate STARTING 1 ROTATE FOR ROTOR!" <<endl;
-
-	cout << "printing array before" <<endl;
-	for(int i=0; i<26; i++){
-		cout << rotorarray[i] << " at element " <<i  <<endl;
-	}
+    cout << "printing array before rotation" <<endl;
+    printrotorarray(rotorarray);
     #endif
 	//rotate array function - 1 standard step.
 
 	int temp=0;
-
+    //moving array around
 	for(int i =25; i > -1 ; i--){
 		temp=rotorarray[25];
 		rotorarray[25]=rotorarray[i];
@@ -380,12 +365,8 @@ bool Rotor::rotate(){
 	}
 
     #ifdef COMMENTS_ON
-	//printing array
 	cout <<"printing array after rotation" <<endl;
-
-	for(int i=0; i<26; i++){
-		cout << rotorarray[i] << " at element " <<i  <<endl;
-    }
+    printrotorarray(rotorarray);
     #endif
 
     /*could set flag that indicates when notch has been reached
@@ -400,5 +381,13 @@ bool Rotor::rotate(){
         return false;
     }
 
+
+}
+
+void Rotor::printrotorarray(int rotorarray[30]){
+cout << "Printing rotor array" << endl;
+    for(int i=0; i<26; i++){
+		cout << rotorarray[i] << " at element " <<i  <<endl;
+    }
 
 }

@@ -36,6 +36,8 @@ char in_out(char input_char, bool way_back); /*maps the inputted character, way_
 and returns the output according to how
 the rotor array is established*/
 
+void printrotorarray(int rotorarray[30]);
+
 };
 
 #endif
