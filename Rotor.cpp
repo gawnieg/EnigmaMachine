@@ -3,7 +3,7 @@
 #include <cstring>
 #include "Rotor.h"
 
-//#define COMMENTS_ON
+// #define COMMENTS_ON
 
 
 using namespace std;
@@ -312,10 +312,7 @@ char Rotor::in_out(char input_char, bool way_back){
 
     return (char)(index_match_back + 65);
     }
-
-
-
-/////////////////end of backward section
+    /////////////////end of backward section
 
 
 

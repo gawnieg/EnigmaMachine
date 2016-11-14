@@ -30,7 +30,7 @@ public:
 
 
 private:
-signed int rotor_index_enigma =0;
+ int rotor_index_enigma =0;
 
 
 

@@ -73,8 +73,9 @@ if ((sizeofargumentlistpassed - 3) ==4){
 }
 
 
-cout << "Main: sizeofargumentlistpassed is " << sizeofargumentlistpassed << endl;
+cout << "Main: sizeofargumentlistpassed - 3 is " << sizeofargumentlistpassed << endl;
 sizeofargumentlistpassed = sizeofargumentlistpassed-3;
+cout << "Main: sizeofargumentlistpassed - 3 is " << sizeofargumentlistpassed << endl;
 
 cout << "Main:creating enigma object " << endl;
 Enigma enigma(plugb,reflec,rotor_r, sizeofargumentlistpassed); // the 2 is the number of rotors
