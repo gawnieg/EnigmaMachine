@@ -4,6 +4,7 @@
 #include "Rotor.h"
 
 #define COMMENTS_ON
+#define ARRAYPRINTING
 
 
 using namespace std;
@@ -280,8 +281,13 @@ char Rotor::in_out(char input_char, bool way_back){
 	*/
     #ifdef COMMENTS_ON
     printrotorarray(rotorarray);
+    if(way_back == false){
+
+
 	cout << "IN_OUT has found the matching number to be " << rotorarray[input_int] << " which as an char is " << (char)(rotorarray[input_int]+65) <<endl;
+    }
     #endif
+
 
     //consider adding a return part
     // look through the rotor array varied side and mark to to the index_
@@ -349,6 +355,10 @@ char Rotor::in_out(char input_char, bool way_back){
 
 bool Rotor::rotate(){
 
+    //increment num_rotations_comp by one!
+    num_rotations_comp++;
+
+
     #ifdef COMMENTS_ON
 	cout <<"Rotor.Rotate STARTING 1 ROTATE FOR ROTOR!" <<endl;
     cout << "printing array before rotation" <<endl;
@@ -385,9 +395,12 @@ bool Rotor::rotate(){
 }
 
 void Rotor::printrotorarray(int rotorarray[30]){
+#ifdef ARRAYPRINTING
 cout << "Printing rotor array" << endl;
     for(int i=0; i<26; i++){
 		cout << rotorarray[i] << " at element " <<i  <<endl;
     }
+#endif
+
 
 }

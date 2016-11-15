@@ -113,10 +113,13 @@ while(input_char != '.'){
     }
 
     cout << "The "<< a <<" charcter from sentence is " << input_char << endl;
-    cout << "The encrypted character is " << enigma.encode(input_char) <<endl;
+
     encrypted_sentence[a] = enigma.encode(input_char);
+    cout << "The encrypted character is " << encrypted_sentence[a] <<endl;
+
     //cout << "encoded character is : " << enigma.encode(input_char) << endl;
     a++;
+    cout << "---------------------------------------------------------------" <<endl;
 
 }
 
@@ -124,6 +127,8 @@ cout << "The encrypted_sentence is " <<endl;
 for(unsigned int i=0; i<input_sentance.length()-1; i++){
     cout << encrypted_sentence[i];
 }
+cout << endl; //print blank line at end for readability
+cout << "The number of rotations for rotor1 is " << rotor_r[0]->num_rotations_comp << endl;
 
 cout << endl; //print blank line at end for readability
 

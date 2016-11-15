@@ -68,6 +68,10 @@ char Enigma::encode(char input_char_to_be_encrypted){
         cout << "rotate rotor 3 is required !!!" << endl;
         rotate_next_rotor_3 = rotorarray[2]->rotate();
     }
+    if(rotate_next_rotor_3 == true && count_temp){
+        cout << "rotate rotor 4 is required !!!" << endl;
+        rotorarray[2]->rotate();
+    }
 
 
     //character to store result between steps.
@@ -143,23 +147,133 @@ char Enigma::encode(char input_char_to_be_encrypted){
         #endif
 
         transfer_char = plugboard->plugboard_convert(input_char_to_be_encrypted);
+
+
+
+
         #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor1 as"<< transfer_char  << endl;
+        cout << "-------------" << endl;
         #endif
 
         transfer_char = rotorarray[0]->in_out(transfer_char,false);
+        char transfer_char_before;
+        transfer_char_before = transfer_char;
+        //additional sector to account for movement between two moving rotors.
+        cout << "ENCODE: accounting for rotation  would be equivilent to  " << \
+        (char)((int)transfer_char - rotorarray[0]->num_rotations_comp)<< endl;
+        transfer_char = (char)((int)transfer_char - rotorarray[0]->num_rotations_comp);
+
+
+
+        if(transfer_char > 'Z' ){
+            cout << "greater than Z so have to reset" << endl;
+            transfer_char = 'A' + ((rotorarray[0]->num_rotations_comp)%25) -1;
+
+        }
+        if(transfer_char < 'A' ){
+            cout << "less than A  so have to reset!!!!!!!!!!!!!!!!!" << endl;
+
+
+            transfer_char = 'Z' - ((rotorarray[0]->num_rotations_comp)%25)-('A'-transfer_char_before) +1 ;
+
+        }
+
+
+
+
         #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor2 as" << transfer_char << endl;
+        cout << "-------------" << endl;
+
         #endif
         transfer_char = rotorarray[1]->in_out(transfer_char,false);
+
+        cout << "ENCODE: accounting for rotation  would be equivilent to  " << \
+        (char)((int)transfer_char - rotorarray[1]->num_rotations_comp)<< endl;
+        transfer_char = (char)((int)transfer_char - rotorarray[1]->num_rotations_comp);
+
+        if(transfer_char > 'Z' ){
+            cout << "greater than Z so have to reset" << endl;
+            transfer_char = 'A' + ((rotorarray[1]->num_rotations_comp)%25) -1;
+
+        }
+        if(transfer_char < 'A' ){
+            cout << "less than A  so have to reset" << endl;
+            transfer_char = 'Z' - ((rotorarray[1]->num_rotations_comp)%25) +1;
+            cout << "printing (rotorarray[1]->num_rotations_comp)%25" << \
+            ((rotorarray[1]->num_rotations_comp)%25) +1 <<endl;
+
+        }
+
+
+
+
+
+
         #ifdef STEP_COMMENTS_ON
         cout << "Encode: sending char to in_out rotor3 as "<< transfer_char << endl;
+        cout << "-------------" << endl;
+
         #endif
         transfer_char = rotorarray[2]->in_out(transfer_char,false);
 
+        cout << "ENCODE: accounting for rotation  would be equivilent to  " << \
+        (char)((int)transfer_char - rotorarray[2]->num_rotations_comp)<< endl;
+        transfer_char = (char)((int)transfer_char - rotorarray[2]->num_rotations_comp);
+
+        if(transfer_char > 'Z' ){
+            cout << "greater than Z so have to reset" << endl;
+            transfer_char = 'A' + ((rotorarray[2]->num_rotations_comp)%25) -1;
+
+        }
+        if(transfer_char < 'A' ){
+            cout << "less than A so have to reset" << endl;
+            transfer_char = 'Z' - ((rotorarray[2]->num_rotations_comp)%25) +1;
+            cout << "printing (rotorarray[2]->num_rotations_comp)%25" << \
+            ((rotorarray[2]->num_rotations_comp)%25) -1 <<endl;
+
+        }
+
+
+
         transfer_char = reflector->reflect(transfer_char);
-        #ifdef STEP_COMMENTS_ON
         cout << "Encode: passed back from reflector was "<< transfer_char << endl;
+        cout << "-------------" << endl;
+        // unsure what is needed here, should do this on way back?
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                        /* WAY BACK */
+
+
+//////////////////////////////////////////////////////////////////////////////////
+        cout << "ENCODE: accounting for rotation  would be equivilent to  " << \
+        (char)((int)transfer_char + (rotorarray[2]->num_rotations_comp)%25)<< endl;
+
+
+        transfer_char = (char)((int)transfer_char + ((rotorarray[2]->num_rotations_comp)%25));
+
+        if(transfer_char > 'Z' ){
+            cout << "greater than Z so have to reset" << endl;
+            transfer_char = 'A' + ((rotorarray[2]->num_rotations_comp)%25) -1;
+
+        }
+        if(transfer_char < 'A' ){
+            cout << "less than A so have to reset" << endl;
+            transfer_char = 'Z' - ((rotorarray[2]->num_rotations_comp)%25) +1;
+            cout << "printing (rotorarray[2]->num_rotations_comp)%25" << \
+            ((rotorarray[2]->num_rotations_comp)%25) +1 <<endl;
+
+        }
+
+        /*cout << "ENCODE: accounting for rotation  would be equivilent to  " << \
+        (char)((int)transfer_char + rotorarray[1]->num_rotations_comp)<< endl;
+        transfer_char = (char)((int)transfer_char + rotorarray[1]->num_rotations_comp);
+        */
+
+        #ifdef STEP_COMMENTS_ON
+
         cout << "Encode: sending char to in_out rotor3 as "<<  transfer_char << endl;
         #endif
 
@@ -167,10 +281,63 @@ char Enigma::encode(char input_char_to_be_encrypted){
         #ifdef STEP_COMMENTS_ON
         cout << "Encode: passed back from rotor3 was "<< transfer_char << endl;
         #endif
+
+
+        cout << "ENCODE: accounting for rotation  would be equivilent to  " << \
+        (char)((int)transfer_char + (rotorarray[1]->num_rotations_comp)%25)<< endl;
+        transfer_char = (char)((int)transfer_char + ((rotorarray[1]->num_rotations_comp)%26));
+
+        if(transfer_char > 'Z' ){
+            cout << "greater than Z so have to reset" << endl;
+            transfer_char = 'A' + ((rotorarray[1]->num_rotations_comp)%25) -1;
+            cout << "printing (rotorarray[1]->num_rotations_comp)%25+1" << \
+            ((rotorarray[1]->num_rotations_comp)%25) -1 <<endl;
+
+
+        }
+        if(transfer_char < 'A' ){
+            cout << "less than A  so have to reset" << endl;
+            transfer_char = 'Z' - ((rotorarray[1]->num_rotations_comp)%25) +1;
+            cout << "printing (rotorarray[1]->num_rotations_comp)%25" << \
+            ((rotorarray[1]->num_rotations_comp)%25) +1 <<endl;
+
+        }
+
+
+
+
+
         transfer_char = rotorarray[1]->in_out(transfer_char,true); //sending to rotor 1
         #ifdef STEP_COMMENTS_ON
-        cout << "Encode: passed back from rotor1 was " << transfer_char<< endl;
+        cout << "Encode: passed back from rotor2 was " << transfer_char<< endl;
         #endif
+
+        transfer_char_before = transfer_char;
+
+        cout << "ENCODE: accounting for rotation  would be equivilent to  " << \
+        (char)((int)transfer_char + (rotorarray[0]->num_rotations_comp)%25)<< endl;
+        transfer_char = (char)((int)transfer_char + ((rotorarray[0]->num_rotations_comp)%25));
+
+
+          if(transfer_char > 'Z' ){
+              cout << "greater than Z so have to reset" << endl;
+              transfer_char = 'A' + ((rotorarray[0]->num_rotations_comp)%25) -1;
+              cout << "printing (rotorarray[0]->num_rotations_comp)%25" << \
+              ((rotorarray[0]->num_rotations_comp)%25) -1 <<endl;
+              cout << "printing rotorarray[0]->num_rotations" << \
+              rotorarray[0]->num_rotations_comp <<endl;
+
+          }
+
+          if(transfer_char < 'A' ){
+              cout << "less than A so have to reset!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+             transfer_char = 'Z' - ((rotorarray[0]->num_rotations_comp)%25)-('A'-transfer_char_before) +1 ;
+
+          }
+
+
+
+
         transfer_char = rotorarray[0]->in_out(transfer_char,true);
         #ifdef STEP_COMMENTS_ON
         cout << "Encode: about to enter plugboard "<< transfer_char << endl;

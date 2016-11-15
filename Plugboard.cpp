@@ -32,7 +32,7 @@ Plugboard::Plugboard(const char* filename){
             //check if everything is a digit
             if(isdigit(pbarray[counter])==true){
                 cerr<< "NON_NUMERIC_CHARACTER" <<endl;
-                
+
             }
             //check for outside of range
             if(pbarray[counter]> 25 ||pbarray[counter]<0 ){
@@ -125,6 +125,7 @@ if(index_match%2 != 0){// if the match is uneven you will want to look at the el
     cout << "pbarray return is " << pbarray[(index_match - 1)] << endl; // 2 as is zero indexed!
     cout << "which is the character " << (char)(pbarray[(index_match - 1)] +65) << endl;
     #endif
+
     return (char)(pbarray[index_match - 1] +65);
 
 }

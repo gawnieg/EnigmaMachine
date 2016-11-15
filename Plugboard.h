@@ -20,11 +20,11 @@ public:
 Plugboard(const char* filename);
 
 
-
+char plugboard_convert(char input);
 
 private:
 
-char plugboard_convert(char input);
+
 int pbarray[26];
 int counter=0;
 
