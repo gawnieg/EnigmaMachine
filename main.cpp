@@ -129,6 +129,8 @@ for(unsigned int i=0; i<input_sentance.length()-1; i++){
 }
 cout << endl; //print blank line at end for readability
 cout << "The number of rotations for rotor1 is " << rotor_r[0]->num_rotations_comp << endl;
+cout << "The number of rotations for rotor2 is " << rotor_r[1]->num_rotations_comp << endl;
+cout << "The number of rotations for rotor3 is " << rotor_r[2]->num_rotations_comp << endl;
 
 cout << endl; //print blank line at end for readability
 
