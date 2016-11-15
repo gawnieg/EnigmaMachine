@@ -175,7 +175,7 @@ char Enigma::encode(char input_char_to_be_encrypted){
             cout << "less than A  so have to reset!!!!!!!!!!!!!!!!!" << endl;
 
 
-            transfer_char = 'Z' - ((rotorarray[0]->num_rotations_comp)%25)-('A'-transfer_char_before) +1 ;
+            transfer_char = 'Z' - ((rotorarray[0]->num_rotations_comp)%25)+(transfer_char_before-'A') +1 ;
 
         }
 
@@ -331,7 +331,7 @@ char Enigma::encode(char input_char_to_be_encrypted){
 
           if(transfer_char < 'A' ){
               cout << "less than A so have to reset!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-             transfer_char = 'Z' - ((rotorarray[0]->num_rotations_comp)%25)-('A'-transfer_char_before) +1 ;
+             transfer_char = 'Z' - ((rotorarray[0]->num_rotations_comp)%25)+(transfer_char_before-'A') +1 ;
 
           }
 
@@ -344,6 +344,7 @@ char Enigma::encode(char input_char_to_be_encrypted){
         #endif
         transfer_char = plugboard->plugboard_convert(transfer_char);
         cout << "Encode: after plugboard "<< transfer_char << endl;
+
     }
 
 

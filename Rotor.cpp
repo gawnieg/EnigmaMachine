@@ -398,7 +398,8 @@ void Rotor::printrotorarray(int rotorarray[30]){
 #ifdef ARRAYPRINTING
 cout << "Printing rotor array" << endl;
     for(int i=0; i<26; i++){
-		cout << rotorarray[i] << " at element " <<i  <<endl;
+		cout << rotorarray[i] << " at element " << i << "  "<< \
+        (char)(rotorarray[i]+65) << " at " << (char)(i+65) <<endl;
     }
 #endif
 
