@@ -64,14 +64,24 @@ char Enigma::encode(char input_char_to_be_encrypted){
         cout << "rotate rotor 2 is required !!!" << endl;
         rotate_next_rotor_2 = rotorarray[1]->rotate();
     }
+
+    cout << "rotate_next_rotor_2  is " << rotate_next_rotor_2 << endl;
+
+    //PROBLEM NO MECHANISM FOR ROTOR 3 TO ROTOATE.
+    cout <<"rotorarray[1]->rotorarray[0]  " << rotorarray[1]->rotorarray[0] <<endl;
+    cout <<"rotorarray[1]->rotate_marker  " << rotorarray[1]->rotate_marker <<endl;
+
+    if(rotorarray[1]->rotorarray[0]==rotorarray[1]->rotate_marker){
+        cout << "WE NEED TO ROTATE ROTOR 3" << endl;
+
+    }
+
+
     if(rotate_next_rotor_2 == true && count_temp>2){
         cout << "rotate rotor 3 is required !!!" << endl;
         rotate_next_rotor_3 = rotorarray[2]->rotate();
     }
-    if(rotate_next_rotor_3 == true && count_temp){
-        cout << "rotate rotor 4 is required !!!" << endl;
-        rotorarray[2]->rotate();
-    }
+
 
 
     //character to store result between steps.
@@ -192,7 +202,7 @@ char Enigma::encode(char input_char_to_be_encrypted){
         //additional sector to account for movement between two moving rotors.
         cout << "ENCODE: accounting for rotation for rotor1  would be equivilent to  " << \
         (char)((int)transfer_char - rotorarray[0]->num_rotations_comp)<< endl;
-        transfer_char = (char)((int)transfer_char - rotorarray[0]->num_rotations_comp); //should this be num_rotations_comp%25?
+        transfer_char = (char)((int)transfer_char - (rotorarray[0]->num_rotations_comp)%25); //should this be num_rotations_comp%25?
 
 
 
@@ -263,6 +273,30 @@ char Enigma::encode(char input_char_to_be_encrypted){
              transfer_char = 'Z' - ((rotorarray[1]->num_rotations_comp)%25)+(transfer_char_before-'A') +1 ;
 
           }
+
+/* ACCOUNTING FOR ROTOR3 MOVEMENT relative TO ROTOR2 */
+
+        transfer_char_before = transfer_char;
+
+        cout << "       Encode: accounting for rotation coming out of rotor2 FOR rotor3 would be equivilent to  " << \
+        (char)((int)transfer_char - (rotorarray[2]->num_rotations_comp)%25)<< endl;
+
+        transfer_char = (char)((int)transfer_char - ((rotorarray[2]->num_rotations_comp)%25));
+
+
+          if(transfer_char > 'Z' ){
+              cout << "greater than Z so have to reset" << endl;
+              transfer_char = 'A' + ((rotorarray[2]->num_rotations_comp)%25)-('Z'-transfer_char_before) -1;
+          }
+
+          if(transfer_char < 'A' ){
+              cout << "less than A so have to reset!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+             transfer_char = 'Z' - ((rotorarray[2]->num_rotations_comp)%25)+(transfer_char_before-'A') +1 ;
+
+          }
+
+
+
 
 
 
@@ -357,60 +391,75 @@ char Enigma::encode(char input_char_to_be_encrypted){
 
 
 
+/* accounting for rotation of rotor3 relative to rotor2*/
+                transfer_char_before = transfer_char;
+
+                cout << "           Encode: accounting for rotation of rotor3 would be equivilent to  " << \
+                (char)((int)transfer_char + (rotorarray[2]->num_rotations_comp)%25)<< endl;
+
+                transfer_char = (char)((int)transfer_char + ((rotorarray[2]->num_rotations_comp)%25));
+
+
+                  if(transfer_char > 'Z' ){
+                      cout << "greater than Z so have to reset" << endl;
+                      transfer_char = 'A' + ((rotorarray[2]->num_rotations_comp)%25)-('Z'-transfer_char_before) -1;
+                  }
+
+                  if(transfer_char < 'A' ){
+                      cout << "less than A so have to reset!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+                     transfer_char = 'Z' - ((rotorarray[2]->num_rotations_comp)%25)+(transfer_char_before-'A') +1 ;
+                 }
+
+
 /* accounting for rotor2's movement relative to rotor3 */
 
 
 
-        /*
-        NOW ADDING SECTION THAT ACCOUNTS FOR MOVEMENT OF
-        SECOND rotor before going to the second rotor*/
         transfer_char_before = transfer_char;
 
         cout << "           Now mapping rotor 3 output to account for rotor2 turning" \
         << (char)((int)transfer_char + rotorarray[1]->num_rotations_comp);
 
-
+cout << "number of rotations is " << rotorarray[1]->num_rotations_comp <<endl;
         transfer_char = (char)((int)transfer_char + rotorarray[1]->num_rotations_comp);
 
 
         if(transfer_char > 'Z' ){
             cout << "greater than Z so have to reset" << endl;
             transfer_char='A' + ((rotorarray[1]->num_rotations_comp)%25)-('Z'-transfer_char_before) -1;
-
+            cout << "have added " << ((rotorarray[1]->num_rotations_comp)%25)-('Z'-transfer_char_before) -1<< " to charcter" <<endl;
         }
         if(transfer_char < 'A' ){
             cout << "less than A  so have to reset!!!!!!!!!!!!!!!!!" << endl;
             transfer_char = 'Z' - ((rotorarray[1]->num_rotations_comp)%25)+(transfer_char_before-'A') +1 ;
 
         }
-
-
 
 /* mapping with rotor2  */
 
         transfer_char = rotorarray[1]->in_out(transfer_char,true); //sending to rotor 1
 
         /* end of added sections*/
-
-
-
-
 //new seciton// mapping rotor2's movement with rotor1
-
-        transfer_char = (char)((int)transfer_char + rotorarray[1]->num_rotations_comp);
         transfer_char_before = transfer_char;
+        transfer_char = (char)((int)transfer_char + rotorarray[1]->num_rotations_comp);
+
+
+        cout << "number of rotations is " << rotorarray[1]->num_rotations_comp <<endl;
+        cout << "transfer_char_before " << transfer_char_before <<endl;
 
 
         if(transfer_char > 'Z' ){
             cout << "greater than Z so have to reset" << endl;
-            transfer_char='A' + ((rotorarray[1]->num_rotations_comp)%25)-('Z'-transfer_char_before) -1;
-
+            transfer_char='A' + ((rotorarray[1]->num_rotations_comp)%25)-('Z'-transfer_char_before)-1;
+            cout << "have added " << ((rotorarray[1]->num_rotations_comp)%25)-('Z'-transfer_char_before) -1<< " to charcter" <<endl;
         }
         if(transfer_char < 'A' ){
-            cout << "less than A  so have to reset!!!!!!!!!!!!!!!!!" << endl;
-            transfer_char = 'Z' - ((rotorarray[1]->num_rotations_comp)%25)+(transfer_char_before-'A') +1 ;
+            cout << "less than A  so have to reset!" << endl;
+            transfer_char = 'Z' - ((rotorarray[1]->num_rotations_comp)%25)+(transfer_char_before-'A')+1;
 
         }
+
 
 
 

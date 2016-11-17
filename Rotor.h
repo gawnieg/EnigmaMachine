@@ -24,16 +24,18 @@ public:
     and returns the output according to how
     the rotor array is established*/
     int num_rotations_comp=0; // will hold the number of rotations the rotor has done.
+    int rotorarray[30];
+    int rotate_marker=0; //marker for where the rotor rotates from
 
 
 
 
 private:
-int rotorarray[30];
+
 int pos_array[5]; //enigma class should really hold the position array
 
 bool sets_position = false;
-int rotate_marker=0; //marker for where the rotor rotates from
+
 
 
 

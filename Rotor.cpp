@@ -264,6 +264,8 @@ char Rotor::in_out(char input_char, bool way_back){
     #ifdef COMMENTS_ON
     cout << "Rotor: passed character to rotor is " << input_char << endl;
     cout << "which as an integer is " << (int)input_char - 65 << endl;
+    cout << "way back? " << way_back <<endl;
+
     #endif
 
     input_int= (int)input_char - 65 ;
@@ -303,7 +305,7 @@ char Rotor::in_out(char input_char, bool way_back){
             }
             index_match_back++;
         }
-
+    cout << "returning " << (char)(index_match_back + 65) <<endl;
     return (char)(index_match_back + 65);
     }
     /////////////////end of backward section
@@ -311,7 +313,8 @@ char Rotor::in_out(char input_char, bool way_back){
 
 
     //this is what should be returned if is on the way out to the reflector -forwards
-	return (char)(rotorarray[input_int]+65);
+    
+    return (char)(rotorarray[input_int]+65);
 
 
 
@@ -382,6 +385,10 @@ bool Rotor::rotate(){
     /*could set flag that indicates when notch has been reached
     and then send flag to enigma class indicating that it should rotate the next
     rotor . true if notch reached, false if not */
+
+    cout << "rotate_marker for this rotor is " << rotate_marker <<endl;
+
+
 
     if(rotorarray[0] == rotate_marker){
         return true;
