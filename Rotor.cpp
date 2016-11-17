@@ -276,11 +276,19 @@ if(way_back==false){
     char transfer_char_before;
     transfer_char_before = transfer_char;
 
+<<<<<<< HEAD
     if(rotor_index_enigma != 0){ // does not need to for first rotor
 
         cout << "Rotor: accounting for rotation for this rotor would be equivilent to  " << \
         (char)((int)transfer_char - enigma.number_rot_comp[rotor_index_enigma])<< endl;
         transfer_char = (char)((int)transfer_char - (enigma.number_rot_comp[rotor_index_enigma]%25));
+=======
+	int input_int;
+    #ifdef COMMENTS_ON
+    cout << "Rotor: passed character to rotor is " << input_char << endl;
+    cout << "which as an integer is " << (int)input_char - 65 << endl;
+    #endif
+>>>>>>> parent of 2addb38... 3 rotors working!!!
 
         if(transfer_char > 'Z' ){
             cout << "greater than Z so have to reset" << endl;
@@ -368,7 +376,14 @@ if(way_back==false){
             }
             index_match_back++;
         }
+<<<<<<< HEAD
     cout << "found mapped character to be  " << (char)(index_match_back + 65) <<endl;
+=======
+
+    return (char)(index_match_back + 65);
+    }
+    /////////////////end of backward section
+>>>>>>> parent of 2addb38... 3 rotors working!!!
 
     #ifdef COMMENTS_ON
         printrotorarray(rotorarray);
@@ -381,6 +396,11 @@ if(way_back==false){
 
     transfer_char = (char)(index_match_back + 65); // this does the mapping
 
+<<<<<<< HEAD
+=======
+    //this is what should be returned if is on the way out to the reflector -forwards
+	return (char)(rotorarray[input_int]+65);
+>>>>>>> parent of 2addb38... 3 rotors working!!!
 
 
     transfer_char_before = transfer_char;
@@ -450,10 +470,6 @@ bool Rotor::rotate(Enigma enigma){
     /*could set flag that indicates when notch has been reached
     and then send flag to enigma class indicating that it should rotate the next
     rotor . true if notch reached, false if not */
-
-    cout << "rotate_marker for this rotor is " << rotate_marker <<endl;
-
-
 
     if(rotorarray[0] == rotate_marker){
         return true;
