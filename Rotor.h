@@ -20,9 +20,10 @@ public:
 
     bool rotate();
 
-    char in_out(char input_char, bool way_back); /*maps the inputted character, way_back is to indicate what direction the character is travelling. true for on the way back
+    char in_out(char input_char, bool way_back, int rotor_index_enigma); /*maps the inputted character, way_back is to indicate what direction the character is travelling. true for on the way back
     and returns the output according to how
     the rotor array is established*/
+    // rotor_index_enigma is the index number, rightmost is zero
     int num_rotations_comp=0; // will hold the number of rotations the rotor has done.
     int rotorarray[30];
     int rotate_marker=0; //marker for where the rotor rotates from
