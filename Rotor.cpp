@@ -256,7 +256,7 @@ using namespace std;
 
     }//end ofrotor constructor
 
-char Rotor::in_out(char input_char, bool way_back, Enigma enigma){
+char Rotor::in_out(char input_char, bool way_back,  Enigma &enigma){
 
 
     	int input_int;
@@ -422,7 +422,7 @@ return transfer_char;
 bool Rotor::rotate(Enigma enigma){
 
 
-    //increment the number of rotations index for this rotor. 
+    //increment the number of rotations index for this rotor.
     enigma.number_rot_comp[rotor_index_enigma]++;
 
 

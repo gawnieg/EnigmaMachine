@@ -28,7 +28,8 @@ public:
     char encode(char input_char_to_be_encrypted);
     int number_rot_comp[5]={0,0,0,0,0};
 
-int rotor_index_enigma =0;
+    int rotor_index_enigma =0;
+int number_of_rotors_enigma;
 
 private:
 

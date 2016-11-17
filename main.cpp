@@ -61,16 +61,6 @@ if((sizeofargumentlistpassed - 3) ==3){
 
 
 }
-if ((sizeofargumentlistpassed - 3) ==4){
-    Rotor *rotor1 = new Rotor(argv[6],argv[7], rotornumber);
-    Rotor *rotor2 = new Rotor(argv[5],argv[7],rotornumber);
-    Rotor *rotor3 = new Rotor(argv[4],argv[7],rotornumber);
-    Rotor *rotor4 = new Rotor(argv[3],argv[7],rotornumber);
-    rotor_r[0]= rotor1;
-    rotor_r[1]= rotor2;
-    rotor_r[2]= rotor3;
-    rotor_r[3]=rotor4;
-}
 
 
 cout << "Main: sizeofargumentlistpassed - 3 is " << sizeofargumentlistpassed << endl;
@@ -81,20 +71,10 @@ cout << "Main:creating enigma object " << endl;
 Enigma enigma(plugb,reflec,rotor_r, sizeofargumentlistpassed); // the 2 is the number of rotors
 
 
-//enigma.one_turn();
-//testing out new array structures
 char input_char;
 string input_sentance;
 cout << "please input an sentence to be encrypted, terminated by a full stop" << endl;
 cin  >>ws>>  input_sentance;
-/*
-cout << "the sentence before modification " << input_sentance <<endl;
-input_sentance=delSpaces(input_sentance);
-cout << "the converted sentence is " << input_sentance <<endl;
-*/
-
-
-
 
 
 int a=0;
@@ -113,9 +93,51 @@ while(input_char != '.'){
     }
 
     cout << "The "<< a <<" charcter from sentence is " << input_char << endl;
+    //encrypted_sentence[a] = enigma.encode(input_char);
+    cout << "number of rotors is " << enigma.number_of_rotors_enigma <<  endl;
 
-    encrypted_sentence[a] = enigma.encode(input_char);
-    cout << "The encrypted character is " << encrypted_sentence[a] <<endl;
+    char transfer_char = input_char;
+    //section to look after rotation of rotors.
+    bool rotate_next_rotor_1 = enigma.rotorarray[0]->rotate();
+    bool rotate_next_rotor_2 = false; // for moving rotor 3
+    bool rotate_next_rotor_3 = false; // for moving rotor 4
+
+    if(rotate_next_rotor_1 == true && number_of_rotors_enigma > 1){
+        cout << "rotate rotor 2 is required !!!" << endl;
+        rotate_next_rotor_2 = enigma.rotorarray[1]->rotate();
+    }
+    if(rotate_next_rotor_2 == true && number_of_rotors_enigma>2){
+        cout << "rotate rotor 3 is required !!!" << endl;
+        rotate_next_rotor_3 = enigma.rotorarray[2]->rotate();
+    }
+
+    //send to plugboard
+    transfer_char = plugb->plugboard_convert(transfer_char);
+    cout << "Output from plugboard is " << transfer_char << endl;
+
+    ///section for way out
+    for(int i =0; i < number_of_rotors_enigma -1; i++){
+
+    transfer_char = rotorarray[i].in_out(transfer_char, 0, enigma); // as
+
+    }
+
+    //send to reflector
+    transfer_char = reflec->reflect(transfer_char);
+    cout << "Output from plugboard is " << transfer_char << endl;
+
+    //section for way back
+
+    for(int i = enigma.number_of_rotors_enigma-1; i < 0; i--){
+
+    transfer_char = rotorarray[i].in_out(transfer_char, 0, enigma); // as
+
+    }
+
+
+
+
+    cout << "The encrypted character is " << transfer_char <<endl;
 
     //cout << "encoded character is : " << enigma.encode(input_char) << endl;
     a++;
@@ -128,6 +150,7 @@ for(unsigned int i=0; i<input_sentance.length()-1; i++){
     cout << encrypted_sentence[i];
 }
 cout << endl; //print blank line at end for readability
+
 cout << "The number of rotations for rotor1 is " << rotor_r[0]->num_rotations_comp << endl;
 cout << "The number of rotations for rotor2 is " << rotor_r[1]->num_rotations_comp << endl;
 cout << "The number of rotations for rotor3 is " << rotor_r[2]->num_rotations_comp << endl;

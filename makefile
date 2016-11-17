@@ -13,5 +13,5 @@ Plugboard.o: Plugboard.cpp Plugboard.h
 Reflector.o: Reflector.cpp Reflector.h
 	g++ -g -Wall -std=c++11 -c Reflector.cpp
 
-Enigma.o: Enigma.cpp Enigma.h
+Enigma.o: Enigma.cpp Enigma.h 
 	g++ -g -Wall -std=c++11 -c Enigma.cpp
