@@ -3,7 +3,7 @@
 
 
 #include <iostream>
-#include "Enigma.h"
+
 
 
 
@@ -19,9 +19,9 @@ public:
     Rotor(const char* filename, const char* pos_file, int rotornumber);
 
 
-    bool rotate( Enigma enigma);
+    bool rotate(int whatrotor, int (&numberofrotationsarray)[5]);
 
-    char in_out(char input_char, bool way_back, Enigma enigma); /*maps the inputted character, way_back is to indicate what direction the character is travelling. true for on the way back
+    char in_out(char input_char, bool way_back,int numberofrotationsarray[5],int rotornumber); /*maps the inputted character, way_back is to indicate what direction the character is travelling. true for on the way back
     and returns the output according to how
     the rotor array is established*/
     // rotor_index_enigma is the index number, rightmost is zero

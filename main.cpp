@@ -78,7 +78,8 @@ cin  >>ws>>  input_sentance;
 
 
 int a=0;
-char encrypted_sentence [100];
+char encrypted_sentence [500];
+
 
 
 while(input_char != '.'){
@@ -91,6 +92,7 @@ while(input_char != '.'){
     if( ((int)input_char < 65) || ((int)input_char >122) || (((int)input_char >90) && ((int)input_char <97)) ){
         break;
     }
+    cout << "-----------------BEGINNING ENCRYPTION-------------------" <<endl;
 
     cout << "The "<< a <<" charcter from sentence is " << input_char << endl;
     //encrypted_sentence[a] = enigma.encode(input_char);
@@ -98,41 +100,53 @@ while(input_char != '.'){
 
     char transfer_char = input_char;
     //section to look after rotation of rotors.
-    bool rotate_next_rotor_1 = enigma.rotorarray[0]->rotate();
+    bool rotate_next_rotor_1 = enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp);
     bool rotate_next_rotor_2 = false; // for moving rotor 3
     bool rotate_next_rotor_3 = false; // for moving rotor 4
 
-    if(rotate_next_rotor_1 == true && number_of_rotors_enigma > 1){
+    if(rotate_next_rotor_1 == true && enigma.number_of_rotors_enigma > 1){
         cout << "rotate rotor 2 is required !!!" << endl;
-        rotate_next_rotor_2 = enigma.rotorarray[1]->rotate();
+        rotate_next_rotor_2 = enigma.rotorarray[1]->rotate(1,enigma.number_rot_comp);
     }
-    if(rotate_next_rotor_2 == true && number_of_rotors_enigma>2){
+    if(rotate_next_rotor_2 == true && enigma.number_of_rotors_enigma>2){
         cout << "rotate rotor 3 is required !!!" << endl;
-        rotate_next_rotor_3 = enigma.rotorarray[2]->rotate();
+        rotate_next_rotor_3 = enigma.rotorarray[2]->rotate(2,enigma.number_rot_comp);
     }
+    cout << enigma.number_rot_comp[1] <<endl;
 
     //send to plugboard
     transfer_char = plugb->plugboard_convert(transfer_char);
     cout << "Output from plugboard is " << transfer_char << endl;
 
     ///section for way out
-    for(int i =0; i < number_of_rotors_enigma -1; i++){
-
-    transfer_char = rotorarray[i].in_out(transfer_char, 0, enigma); // as
+    for(int i =0; i < enigma.number_of_rotors_enigma; i++){
+        cout <<"sending character to in_out on way out" << endl;
+    transfer_char = (enigma.rotorarray[i])->in_out(transfer_char, 0, enigma.number_rot_comp , i); // as
 
     }
-
+    cout << "########################Now sending to reflector#####################" << endl;
     //send to reflector
     transfer_char = reflec->reflect(transfer_char);
-    cout << "Output from plugboard is " << transfer_char << endl;
-
+    cout << "Output from reflector is " << transfer_char << endl;
+    cout << "enigma number of rotors is " << enigma.number_of_rotors_enigma << endl;
     //section for way back
 
-    for(int i = enigma.number_of_rotors_enigma-1; i < 0; i--){
 
-    transfer_char = rotorarray[i].in_out(transfer_char, 0, enigma); // as
+
+
+
+    for(int i = enigma.number_of_rotors_enigma-1; i > -1; i--){
+        cout <<"sending character to in_out on way back for rotor index "<<i  << endl;
+    transfer_char = (enigma.rotorarray[i])->in_out(transfer_char, 1, enigma.number_rot_comp, i);
 
     }
+    //NOW SEND TO PLUGBOARD
+
+    transfer_char = plugb->plugboard_convert(transfer_char);
+
+
+    encrypted_sentence[a] = transfer_char;
+
 
 
 
@@ -146,14 +160,14 @@ while(input_char != '.'){
 }
 
 cout << "The encrypted_sentence is " <<endl;
-for(unsigned int i=0; i<input_sentance.length()-1; i++){
+for(unsigned int i=0; i<a; i++){
     cout << encrypted_sentence[i];
 }
 cout << endl; //print blank line at end for readability
 
-cout << "The number of rotations for rotor1 is " << rotor_r[0]->num_rotations_comp << endl;
-cout << "The number of rotations for rotor2 is " << rotor_r[1]->num_rotations_comp << endl;
-cout << "The number of rotations for rotor3 is " << rotor_r[2]->num_rotations_comp << endl;
+cout << "The number of rotations for rotor1 is " << enigma.number_rot_comp[0] << endl;
+cout << "The number of rotations for rotor2 is " << enigma.number_rot_comp[1]<< endl;
+cout << "The number of rotations for rotor3 is " << enigma.number_rot_comp[2] << endl;
 
 cout << endl; //print blank line at end for readability
 

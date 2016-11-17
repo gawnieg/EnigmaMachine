@@ -256,7 +256,7 @@ using namespace std;
 
     }//end ofrotor constructor
 
-char Rotor::in_out(char input_char, bool way_back,  Enigma &enigma){
+char Rotor::in_out(char input_char, bool way_back,  int numberofrotationsarray [5], int rotornumber){
 
 
     	int input_int;
@@ -265,7 +265,7 @@ char Rotor::in_out(char input_char, bool way_back,  Enigma &enigma){
         cout << "way back? " << way_back <<endl;
 
         #endif
-        int next_rotor_index_enigma = rotor_index_enigma +1; // is the next one over
+        int nextrotornumber = rotornumber +1; // is the next one over
 
 if(way_back==false){
 
@@ -276,34 +276,26 @@ if(way_back==false){
     char transfer_char_before;
     transfer_char_before = transfer_char;
 
-<<<<<<< HEAD
-    if(rotor_index_enigma != 0){ // does not need to for first rotor
+    if(rotornumber != 0){ // does not need to for first rotor
 
         cout << "Rotor: accounting for rotation for this rotor would be equivilent to  " << \
-        (char)((int)transfer_char - enigma.number_rot_comp[rotor_index_enigma])<< endl;
-        transfer_char = (char)((int)transfer_char - (enigma.number_rot_comp[rotor_index_enigma]%25));
-=======
-	int input_int;
-    #ifdef COMMENTS_ON
-    cout << "Rotor: passed character to rotor is " << input_char << endl;
-    cout << "which as an integer is " << (int)input_char - 65 << endl;
-    #endif
->>>>>>> parent of 2addb38... 3 rotors working!!!
+        (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%25))<< endl;
+        transfer_char = (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%25));
 
         if(transfer_char > 'Z' ){
             cout << "greater than Z so have to reset" << endl;
-            transfer_char='A' + (enigma.number_rot_comp[rotor_index_enigma]%25)-('Z'-transfer_char_before) -1;
+            transfer_char='A' + (numberofrotationsarray[rotornumber]%25)-('Z'-transfer_char_before) -1;
         }
         if(transfer_char < 'A' ){
             cout << "less than A  so have to reset!" << endl;
-            transfer_char = 'Z' - (enigma.number_rot_comp[rotor_index_enigma]%25)+(transfer_char_before-'A') +1 ;
+            transfer_char = 'Z' - (numberofrotationsarray[rotornumber]%25)+(transfer_char_before-'A') +1 ;
         }
 
-        cout << "Rotor: accounting for rotation would be equivilent to  " <<transfer_char<<endl;
+        cout << "Rotor: accounted for rotation would be equivilent to  " <<transfer_char<<endl;
     }
 
     //then mapping internally
-    input_int= (int)input_char - 65 ;
+    input_int= (int)transfer_char - 65 ;
     #ifdef COMMENTS_ON
         printrotorarray(rotorarray);
         if(way_back == false){
@@ -317,24 +309,26 @@ if(way_back==false){
 
     transfer_char = (char)(rotorarray[input_int]+65); // this does the internal mapping.
 
-    cout << "   Now changing to account for output rotor rotation relativity " \
-    << (char)((int)transfer_char - enigma.number_rot_comp[rotor_index_enigma]) <<endl;
+    cout << "   Now changing to account for output rotor" <<rotornumber <<\
+    " rotation relativity " \
+    << (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%25)) <<endl;
     transfer_char_before = transfer_char;
 
-    transfer_char = (char)((int)transfer_char - enigma.number_rot_comp[rotor_index_enigma]);
+    transfer_char = (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%25));
 
 
     if(transfer_char > 'Z' ){
         cout << "greater than Z so have to reset" << endl;
-        transfer_char='A' + ((enigma.number_rot_comp[rotor_index_enigma])%25)-('Z'-transfer_char_before) -1;
+        transfer_char='A' + ((numberofrotationsarray[rotornumber])%25)-('Z'-transfer_char_before) -1;
 
     }
     if(transfer_char < 'A' ){
         cout << "less than A  so have to reset!!!!!!!!!!!!!!!!!" << endl;
-        transfer_char = 'Z' - ((enigma.number_rot_comp[rotor_index_enigma])%25)+(transfer_char_before-'A') +1 ;
+        transfer_char = 'Z' - ((numberofrotationsarray[rotornumber])%25)+(transfer_char_before-'A') +1 ;
 
     }
 
+return transfer_char;
 
 } //end of forwards section
 
@@ -342,30 +336,36 @@ if(way_back==false){
 
     if(way_back == true){
 
-
+        char  transfer_char = input_char;
+        char transfer_char_before;
         transfer_char_before = transfer_char;
 
-        cout << "           Rotor Class moving backwards - accounting for rotation " << \
-        (char)((int)transfer_char + (enigma.number_rot_comp[rotor_index_enigma])%25)<< endl;
+        cout << "passed in as " << transfer_char << endl;
 
-        transfer_char = (char)((int)transfer_char + ((enigma.number_rot_comp[rotor_index_enigma])%25));
+        cout << "Rotor Class moving backwards - accounting for rotation is now " << \
+        (char)((int)transfer_char + (numberofrotationsarray[rotornumber])%25) <<\
+        "which is adding" << (numberofrotationsarray[rotornumber])%25 << endl;
+
+
+
+        transfer_char = (char)((int)transfer_char + ((numberofrotationsarray[rotornumber])%25));
 
 
           if(transfer_char > 'Z' ){
               cout << "greater than Z so have to reset" << endl;
-              transfer_char = 'A' + ((enigma.number_rot_comp[rotor_index_enigma])%25)-('Z'-transfer_char_before) -1;
+              transfer_char = 'A' + ((numberofrotationsarray[rotornumber])%25)-('Z'-transfer_char_before) -1;
           }
 
           if(transfer_char < 'A' ){
               cout << "less than A so have to reset!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-             transfer_char = 'Z' - ((enigma.number_rot_comp[rotor_index_enigma])%25)+(transfer_char_before-'A') +1 ;
+             transfer_char = 'Z' - ((numberofrotationsarray[rotornumber])%25)+(transfer_char_before-'A') +1 ;
          }
 
 
 
         /* MAPPING SECTION */
 
-        input_int= (int)input_char - 65 ;
+        input_int= (int)transfer_char - 65 ;
         bool rotorarraymatch=false;
         int index_match_back=0;
 
@@ -376,55 +376,45 @@ if(way_back==false){
             }
             index_match_back++;
         }
-<<<<<<< HEAD
-    cout << "found mapped character to be  " << (char)(index_match_back + 65) <<endl;
-=======
+        cout << "found mapped character on way back to be  " << (char)(index_match_back + 65) <<endl;
 
-    return (char)(index_match_back + 65);
-    }
-    /////////////////end of backward section
->>>>>>> parent of 2addb38... 3 rotors working!!!
+        #ifdef COMMENTS_ON
+            printrotorarray(rotorarray);
+            if(way_back == false){
+                    cout << "IN_OUT has found the matching number to be "\
+                    << rotorarray[input_int] << " which as an char is " <<\
+                     (char)(rotorarray[input_int]+65) <<endl;
+            }
+        #endif
 
-    #ifdef COMMENTS_ON
-        printrotorarray(rotorarray);
-        if(way_back == false){
-                cout << "IN_OUT has found the matching number to be "\
-                << rotorarray[input_int] << " which as an char is " <<\
-                 (char)(rotorarray[input_int]+65) <<endl;
+        transfer_char = (char)(index_match_back + 65); // this does the mapping
+
+
+
+        transfer_char_before = transfer_char;
+
+        if(rotornumber !=0){ // does not need to be done before the plugboard.
+
+        cout << " Rotor Class moving backwards (part2)- accounting for rotation  " << \
+        (char)((int)transfer_char + (numberofrotationsarray[rotornumber])%25)<< \
+        " which is adding " << (numberofrotationsarray[rotornumber])%25 << endl;
+
+        transfer_char = (char)((int)transfer_char + ((numberofrotationsarray[rotornumber])%25));
+
+
+          if(transfer_char > 'Z' ){
+              cout << "greater than Z so have to reset" << endl;
+              transfer_char = 'A' + ((numberofrotationsarray[rotornumber])%25)-('Z'-transfer_char_before) -1;
+          }
+
+          if(transfer_char < 'A' ){
+              cout << "less than A so have to reset!" << endl;
+             transfer_char = 'Z' - ((numberofrotationsarray[rotornumber])%25)+(transfer_char_before-'A') +1 ;
+         }
+         cout << "the character is now " << transfer_char << "going back to main" <<endl;
         }
-    #endif
 
-    transfer_char = (char)(index_match_back + 65); // this does the mapping
-
-<<<<<<< HEAD
-=======
-    //this is what should be returned if is on the way out to the reflector -forwards
-	return (char)(rotorarray[input_int]+65);
->>>>>>> parent of 2addb38... 3 rotors working!!!
-
-
-    transfer_char_before = transfer_char;
-
-    if(rotor_index_enigma !=0){ // does not need to be done before the plugboard.
-
-    cout << "           Rotor Class moving backwards - accounting for rotation  " << \
-    (char)((int)transfer_char + (enigma.number_rot_comp[rotor_index_enigma])%25)<< endl;
-
-    transfer_char = (char)((int)transfer_char + ((enigma.number_rot_comp[rotor_index_enigma])%25));
-
-
-      if(transfer_char > 'Z' ){
-          cout << "greater than Z so have to reset" << endl;
-          transfer_char = 'A' + ((enigma.number_rot_comp[rotor_index_enigma])%25)-('Z'-transfer_char_before) -1;
-      }
-
-      if(transfer_char < 'A' ){
-          cout << "less than A so have to reset!" << endl;
-         transfer_char = 'Z' - ((enigma.number_rot_comp[rotor_index_enigma])+(transfer_char_before-'A') +1 ;
-     }
-    }
-
-
+return transfer_char;
 
 
  }    /////////////////end of backward section
@@ -432,18 +422,18 @@ if(way_back==false){
 
 
 
-return transfer_char;
+return 'F'; //if goosed
 
 
 
 }//end bracket for in_out
 
 
-bool Rotor::rotate(Enigma enigma){
+bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
 
 
     //increment the number of rotations index for this rotor.
-    enigma.number_rot_comp[rotor_index_enigma]++;
+    numberofrotationsarray[whatrotor]++;
 
 
 
@@ -471,7 +461,11 @@ bool Rotor::rotate(Enigma enigma){
     and then send flag to enigma class indicating that it should rotate the next
     rotor . true if notch reached, false if not */
 
-    if(rotorarray[0] == rotate_marker){
+    cout << "rotate_marker for this rotor is " << rotate_marker <<endl;
+
+
+
+    if(rotorarray[0] == rotate_marker){ // IF THE TOP POSITION IS EQUAL TO THE NOTCH THEN ROTATE
         return true;
 
     }
