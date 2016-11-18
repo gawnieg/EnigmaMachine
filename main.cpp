@@ -29,11 +29,6 @@ class Outboard{
 int main(int argc, char** argv){
 
 
-int sizeofargumentlistpassed=argc-1;// minus one as executable counted!
-cout << sizeofargumentlistpassed << "Main: arguments have been passed!!!" <<endl;
-cout << "Main: number of rotors = " << sizeofargumentlistpassed - 3 << endl; /* as
-plugboard, reflector and rotor position file must be uploaded)*/
-
 int rotornumber = 1;
 int mainnumrotors = argc-4;
 
@@ -48,43 +43,14 @@ for(int i =0; i < mainnumrotors; i++ ){
 
     rotor_r[i] = new Rotor(argv[(argc-2-i)],argv[argc-1],rotornumber);
     rotornumber++;
-    
-}
-
-
-
-
-/*
-if((sizeofargumentlistpassed - 3) ==1){
-    Rotor *rotor1 = new Rotor(argv[3],argv[4], rotornumber);
-    rotor_r[0]= rotor1;
 
 }
-if((sizeofargumentlistpassed - 3) ==2){
-    Rotor *rotor1 = new Rotor(argv[4],argv[5], rotornumber);
-    Rotor *rotor2 = new Rotor(argv[3],argv[5],rotornumber);
-    rotor_r[0]= rotor1;
-    rotor_r[1]= rotor2;
-}
-if((sizeofargumentlistpassed - 3) ==3){
-    Rotor *rotor1 = new Rotor(argv[5],argv[6], rotornumber); // was argv[3]
-    Rotor *rotor2 = new Rotor(argv[4],argv[6],rotornumber); //was argv[4]
-    Rotor *rotor3 = new Rotor(argv[3],argv[6],rotornumber);
-    rotor_r[0]= rotor1;
-    rotor_r[1]= rotor2;
-    rotor_r[2]= rotor3;
 
 
-}
-*/
 
-
-cout << "Main: sizeofargumentlistpassed - 3 is " << sizeofargumentlistpassed << endl;
-sizeofargumentlistpassed = sizeofargumentlistpassed-3;
-cout << "Main: sizeofargumentlistpassed - 3 is " << sizeofargumentlistpassed << endl;
 
 cout << "Main:creating enigma object " << endl;
-Enigma enigma(plugb,reflec,rotor_r, sizeofargumentlistpassed); // the 2 is the number of rotors
+Enigma enigma(plugb,reflec,rotor_r, mainnumrotors); // the 2 is the number of rotors
 
 
 char input_char;
@@ -120,7 +86,9 @@ while(input_char != '.'){
     bool rotate_next_rotor_3 = false;
 
     rotate_next_rotor_1 = enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp); //THESE 0,1,2 ETC NEED TO BE CHANGED TO TAKE ON INFINITE ROTORS!
-
+    cout << "*******************************************************"<< endl;
+    cout << "rotate_next_rotor_1 " << rotate_next_rotor_1 <<endl;
+    cout << "rotate_next_rotor_2 " << rotate_next_rotor_2 <<endl;
 
     if(rotate_next_rotor_1 == true && enigma.number_of_rotors_enigma > 1){
         cout << "rotate rotor 2 is required !!!" << endl;
