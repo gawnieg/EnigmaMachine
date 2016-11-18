@@ -17,10 +17,11 @@ class Plugboard{
 
 public:
     //constructors
-Plugboard(const char* filename);
+Plugboard();
 
 
 char plugboard_convert(char input);
+int Plugboard_load(const char* filename);
 
 private:
 

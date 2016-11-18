@@ -14,9 +14,9 @@ class Reflector{
 
 public:
     //constructors
-    Reflector(const char* filename);
+    Reflector();
 char reflect(char input_char);
-
+int Reflector_load(const char* filename);
 
 
 private:
