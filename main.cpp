@@ -60,7 +60,7 @@ int main(int argc, char** argv){
 
     char input_char;
     string input_sentance;
-    cout << "please input an sentence to be encrypted, terminated by a full stop" << endl;
+    // cout << "please input an sentence to be encrypted, terminated by a full stop" << endl;
     cin  >>ws>>  input_sentance;
 
 
