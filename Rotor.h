@@ -3,7 +3,7 @@
 
 
 #include <iostream>
-
+#include "errors.h"
 
 
 
@@ -15,8 +15,9 @@ class Rotor{
 
 public:
     //constructors
-    Rotor(const char* filename, int rotornumber);
-    Rotor(const char* filename, const char* pos_file, int rotornumber);
+
+    Rotor();
+    int Rotor_load(const char* filename, const char* pos_file, int rotornumber);
 
 
     bool rotate(int whatrotor, int (&numberofrotationsarray)[5]);

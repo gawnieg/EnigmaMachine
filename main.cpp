@@ -9,6 +9,7 @@
 #include <algorithm>
 #include "errors.h"
 
+// #define COMMENTS_ON
 
 using namespace std;
 
@@ -39,7 +40,7 @@ int main(int argc, char** argv){
     }
     Reflector *reflec = new Reflector();
     errorcode = reflec->Reflector_load(argv[2]);
-    cout << "The error code is " <<errorcode <<endl;
+
     if(errorcode!=0){
         return errorcode;
     }
@@ -47,12 +48,13 @@ int main(int argc, char** argv){
     Rotor* rotor_r[mainnumrotors];
     for(int i =0; i < mainnumrotors; i++ ){
 
-        rotor_r[i] = new Rotor(argv[(argc-2-i)],argv[argc-1],rotornumber);
+        rotor_r[i] = new Rotor();
+        rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber);
         rotornumber++;
 
     }
 
-    cout << "Main:creating enigma object " << endl;
+
     Enigma enigma(plugb,reflec,rotor_r, mainnumrotors); // the 2 is the number of rotors
 
 
@@ -73,15 +75,17 @@ int main(int argc, char** argv){
         if(input_char == '.'){
             break;
         }
+        #ifdef COMMENTS_ON
         cout << "debugging - the int version of the character is " << (int)input_char <<endl;
+        #endif
         if( ((int)input_char < 65) || ((int)input_char >122) || (((int)input_char >90) && ((int)input_char <97)) ){
             break;
         }
 
 
-
+        #ifdef COMMENTS_ON
         cout << "number of rotors is " << enigma.number_of_rotors_enigma <<  endl;
-
+        #endif
         char transfer_char = input_char;
         // //section to look after rotation of rotors. Turn into a loop!
         // bool rotate_next_rotor_1;
@@ -109,7 +113,9 @@ int main(int argc, char** argv){
 
     if(norotors==false){
         if(enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp)==true){
+            #ifdef COMMENTS_ON
             cout << "rotation of second required" << endl;
+            #endif
             for(int i =0; i < mainnumrotors; i++ ){//rotation
                 if(enigma.rotorarray[i+1]->rotate(i+1, enigma.number_rot_comp)!=true){
                     break;
@@ -139,29 +145,38 @@ int main(int argc, char** argv){
         //     rotate_next_rotor_3 = enigma.rotorarray[2]->rotate(2,enigma.number_rot_comp);
         // }
 
-
+        #ifdef COMMENTS_ON
         cout << "-----------------BEGINNING ENCRYPTION-------------------" <<endl;
+        #endif
         //send to plugboard
         transfer_char = plugb->plugboard_convert(transfer_char);
+        #ifdef COMMENTS_ON
         cout << "Output from plugboard is " << transfer_char << endl;
+        #endif
         ///section for way out
         if(norotors==false){
             for(int i =0; i < enigma.number_of_rotors_enigma; i++){
+                #ifdef COMMENTS_ON
                 cout <<"sending character to in_out on way out" << endl;
+                #endif
                 transfer_char = (enigma.rotorarray[i])->in_out(transfer_char, 0, enigma.number_rot_comp , i); // as
             }
         }
-
+        #ifdef COMMENTS_ON
         cout << "########################Now sending to reflector#####################" << endl;
+        #endif
         //send to reflector
         transfer_char = reflec->reflect(transfer_char);
+        #ifdef COMMENTS_ON
         cout << "Output from reflector is " << transfer_char << endl;
         cout << "enigma number of rotors is " << enigma.number_of_rotors_enigma << endl;
-        //section for way back
+        #endif
 
         if(norotors==false){
             for(int i = enigma.number_of_rotors_enigma-1; i > -1; i--){
+                #ifdef COMMENTS_ON
                 cout <<"sending character to in_out on way back for rotor index "<<i  << endl;
+                #endif
                 transfer_char = (enigma.rotorarray[i])->in_out(transfer_char, 1, enigma.number_rot_comp, i);
             }
         }
@@ -169,26 +184,30 @@ int main(int argc, char** argv){
         //NOW SEND TO PLUGBOARD
         transfer_char = plugb->plugboard_convert(transfer_char);
         encrypted_sentence[a] = transfer_char;
+        #ifdef COMMENTS_ON
         cout << "The encrypted character is " << transfer_char <<endl;
+        #endif
 
         //cout << "encoded character is : " << enigma.encode(input_char) << endl;
         a++;
+        #ifdef COMMENTS_ON
         cout << "---------------------------------------------------------------" <<endl;
-
+        #endif
     }
-
+    #ifdef COMMENTS_ON
     cout << "The encrypted_sentence is " <<endl;
+    #endif
     for( int i=0; i<a; i++){
         cout << encrypted_sentence[i];
     }
     cout << endl; //print blank line at end for readability
-
+    #ifdef COMMENTS_ON
     cout << "The number of rotations for rotor1 is " << enigma.number_rot_comp[0] << endl;
     cout << "The number of rotations for rotor2 is " << enigma.number_rot_comp[1]<< endl;
     cout << "The number of rotations for rotor3 is " << enigma.number_rot_comp[2] << endl;
 
     cout << endl; //print blank line at end for readability
-
+    #endif
 
 
 if(errorcode==0){
@@ -221,9 +240,7 @@ cout << str << endl;
 To Do:
 1. be able to pass in strings from the commmand LINE
 2. construct enigma so that it can have unlimited rotors.
-3.  update error code. isdigit is also not functioning correctly
 4. make rotor3 rotate in a three rotor setup
-5. Make deconstructors for each of the classes.
 6. see what you can make private without too much hassle. .
 
 
