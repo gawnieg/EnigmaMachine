@@ -465,7 +465,7 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
 
 
 
-    if(rotorarray[0] == rotate_marker){ // IF THE TOP POSITION IS EQUAL TO THE NOTCH THEN ROTATE
+    if(rotorarray[0] == rotate_marker){ // IF THE TOP POSITION IS EQUAL TO THE NOTCH T
         return true;
 
     }

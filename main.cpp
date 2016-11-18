@@ -84,9 +84,9 @@ int main(int argc, char** argv){
 
         char transfer_char = input_char;
         // //section to look after rotation of rotors. Turn into a loop!
-        bool rotate_next_rotor_1;
-        bool rotate_next_rotor_2 = false;
-        bool rotate_next_rotor_3 = false;
+        // bool rotate_next_rotor_1;
+        // bool rotate_next_rotor_2 = false;
+        // bool rotate_next_rotor_3 = false;
 
 
         //bool rotorrotate [mainnumrotors];
@@ -107,37 +107,37 @@ int main(int argc, char** argv){
     //     }
     // }
 
-//     if(norotors==false){
-//         if(enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp)==true){
-//             cout << "rotation of second required" << endl;
-//             for(int i =0; i < mainnumrotors; i++ ){//rotation
-//                 if(enigma.rotorarray[i+1]->rotate(i+1, enigma.number_rot_comp)!=true){
-//                     break;
-//                 }
-//
-//         }
-//     }
-// }
+    if(norotors==false){
+        if(enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp)==true){
+            cout << "rotation of second required" << endl;
+            for(int i =0; i < mainnumrotors; i++ ){//rotation
+                if(enigma.rotorarray[i+1]->rotate(i+1, enigma.number_rot_comp)!=true){
+                    break;
+                }
 
-
-
-
-
-
-
-        rotate_next_rotor_1 = enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp); //THESE 0,1,2 ETC NEED TO BE CHANGED TO TAKE ON INFINITE ROTORS!
-        cout << "*******************************************************"<< endl;
-        cout << "rotate_next_rotor_1 " << rotate_next_rotor_1 <<endl;
-        cout << "rotate_next_rotor_2 " << rotate_next_rotor_2 <<endl;
-
-        if(rotate_next_rotor_1 == true && enigma.number_of_rotors_enigma > 1){
-            cout << "rotate rotor 2 is required !!!" << endl;
-            rotate_next_rotor_2 = enigma.rotorarray[1]->rotate(1,enigma.number_rot_comp);//enigma.number_rot_comp passed by reference - is an array
         }
-        if(rotate_next_rotor_2 == true && enigma.number_of_rotors_enigma>2){
-            cout << "rotate rotor 3 is required !!!" << endl;
-            rotate_next_rotor_3 = enigma.rotorarray[2]->rotate(2,enigma.number_rot_comp);
-        }
+    }
+}
+
+
+
+
+
+
+
+        // rotate_next_rotor_1 = enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp); //THESE 0,1,2 ETC NEED TO BE CHANGED TO TAKE ON INFINITE ROTORS!
+        // cout << "*******************************************************"<< endl;
+        // cout << "rotate_next_rotor_1 " << rotate_next_rotor_1 <<endl;
+        // cout << "rotate_next_rotor_2 " << rotate_next_rotor_2 <<endl;
+        //
+        // if(rotate_next_rotor_1 == true && enigma.number_of_rotors_enigma > 1){
+        //     cout << "rotate rotor 2 is required !!!" << endl;
+        //     rotate_next_rotor_2 = enigma.rotorarray[1]->rotate(1,enigma.number_rot_comp);//enigma.number_rot_comp passed by reference - is an array
+        // }
+        // if(rotate_next_rotor_2 == true && enigma.number_of_rotors_enigma>2){
+        //     cout << "rotate rotor 3 is required !!!" << endl;
+        //     rotate_next_rotor_3 = enigma.rotorarray[2]->rotate(2,enigma.number_rot_comp);
+        // }
 
 
         cout << "-----------------BEGINNING ENCRYPTION-------------------" <<endl;
