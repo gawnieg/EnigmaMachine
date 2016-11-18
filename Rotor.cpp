@@ -15,7 +15,7 @@ using namespace std;
 
     Rotor::Rotor(){
 
-
+        //intentionally blank
 
 
     }//end ofrotor constructor with position array
@@ -41,31 +41,6 @@ if(way_back==false){
     char  transfer_char = input_char;
     char transfer_char_before;
     transfer_char_before = transfer_char;
-
-    if(rotornumber != 0){ // does not need to for first rotor
-        // #ifdef COMMENTS_ON
-        // cout << "Rotor: accounting for rotation for this rotor would be equivilent to  " << \
-        // (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%25))<< endl;
-        // #endif
-        // transfer_char = (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%25));
-        //
-        // if(transfer_char > 'Z' ){
-        //     #ifdef COMMENTS_ON
-        //     cout << "greater than Z so have to reset" << endl;
-        //     #endif
-        //     transfer_char='A' + (numberofrotationsarray[rotornumber]%25)-('Z'-transfer_char_before) -1;
-        // }
-        // if(transfer_char < 'A' ){
-        //     #ifdef COMMENTS_ON
-        //     cout << "less than A  so have to reset!" << endl;
-        //     #endif
-        //
-        //     transfer_char = 'Z' - (numberofrotationsarray[rotornumber]%25)+(transfer_char_before-'A') +1 ;
-        // }
-        #ifdef COMMENTS_ON
-        cout << "Rotor: accounted for rotation would be equivilent to  " <<transfer_char<<endl;
-        #endif
-    }
 
     //then mapping internally
     input_int= (int)transfer_char - 65 ;
@@ -178,36 +153,6 @@ return transfer_char;
 
         transfer_char = (char)(index_match_back + 65); // this does the mapping
 
-
-
-        transfer_char_before = transfer_char;
-
-        if(rotornumber !=0){ // does not need to be done before the plugboard.
-            // #ifdef COMMENTS_ON
-        // cout << " Rotor Class moving backwards (part2)- accounting for rotation  " << \
-        // (char)((int)transfer_char + (numberofrotationsarray[rotornumber])%25)<< \
-        // " which is adding " << (numberofrotationsarray[rotornumber])%25 << endl;
-        // #endif
-        // transfer_char = (char)((int)transfer_char + ((numberofrotationsarray[rotornumber])%25));
-        //
-        //
-        //   if(transfer_char > 'Z' ){
-        //       #ifdef COMMENTS_ON
-        //       cout << "greater than Z so have to reset" << endl;
-        //       #endif
-        //       transfer_char = 'A' + ((numberofrotationsarray[rotornumber])%25)-('Z'-transfer_char_before) -1;
-        //   }
-        //
-        //   if(transfer_char < 'A' ){
-        //       #ifdef COMMENTS_ON
-        //       cout << "less than A so have to reset!" << endl;
-        //       #endif
-        //      transfer_char = 'Z' - ((numberofrotationsarray[rotornumber])%25)+(transfer_char_before-'A') +1 ;
-        //  }
-        // #ifdef COMMENTS_ON
-        //  cout << "the character is now " << transfer_char << "going back to main" <<endl;
-        //  #endif
-        }
 
 return transfer_char;
 
