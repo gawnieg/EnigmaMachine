@@ -4,8 +4,8 @@
 #include "Rotor.h"
 #include "errors.h"
 //
-// #define COMMENTS_ON
-// #define ARRAYPRINTING
+#define COMMENTS_ON
+#define ARRAYPRINTING
 
 
 using namespace std;
@@ -200,7 +200,7 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
 #endif
 
     //was rotorarray[0]== rotatemarker
-    if(rotate_marker== numberofrotationsarray[whatrotor]-1){ // IF THE TOP POSITION IS EQUAL TO THE NOTCH T
+    if(rotate_marker== numberofrotationsarray[whatrotor]){ // -1 on rhs IF THE TOP POSITION IS EQUAL TO THE NOTCH T
         return true;
 
     }
@@ -235,15 +235,24 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     int pos_counter=0;
     while(!in_pos.eof()){
         in_pos  >>  pos_array[pos_counter];
-        //cout << "reading pos array" << endl;
-        //cout << "counter is " << pos_counter << endl;
 
         if(in_pos.rdstate()>0){
             break;
         }
-        if(isdigit(pos_array[pos_counter])==true){
-            return(NON_NUMERIC_CHARACTER);
+
+
+        char test_char;
+        in_pos.open(filename);
+        if (in_pos.is_open()) {
+          while (in_pos >> test_char) {
+            if (!isdigit(test_char)) {
+
+          return NON_NUMERIC_CHARACTER;
+            }
+          }
         }
+        in_pos.close();
+
         if(pos_array[pos_counter]> 25 ||pos_array[pos_counter]<0 ){
             return(INVALID_INDEX);
         }
@@ -253,45 +262,55 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     in_pos.close();
 
 
+//////////////////END OF SECTION TO LOAD POSITION //////////////////////////
+
     ifstream in;
     in.open(filename);
-        if(in.fail()){
-            return (ERROR_OPENING_CONFIGURATION_FILE);
+
+    if(in.fail()){
+        return (ERROR_OPENING_CONFIGURATION_FILE);
+    }
+
+
+    int counter=0;
+
+    while(!in.eof()){
+
+        in >>ws >>  rotorarray[counter];
+        //this is exiting out of the loop for the last character
+        if(in.rdstate()>0){
+            break;
         }
-        //put in array
-        //int pbarray[26];
 
-        //printing for testing
-
-        int counter=0;
-
-        while(!in.eof()){
-
-            in >>ws >>  rotorarray[counter];
-            //this is exiting out of the loop for the last character
-            if(in.rdstate()>0){
-                break;
-            }
-            //check if everything is a digit
-            if(isdigit(rotorarray[counter])==true){
-                return(NON_NUMERIC_CHARACTER);
-            }
-            //check for outside of range
-            if(rotorarray[counter]> 25 ||rotorarray[counter]<0 ){
-                return(INVALID_INDEX);
-            }
-            //check for duplicates
-            for(int i =0; i<(counter-1); i++ ){ //counter -1 to account for the fact that the rotate marker is included
-                for(int j=0; j < i; j++){
-                    if(rotorarray[i]==rotorarray[j]){
-                        return(INVALID_ROTOR_MAPPING);
-                    }
+        //check for outside of range
+        if(rotorarray[counter]> 25 ||rotorarray[counter]<0 ){
+            return(INVALID_INDEX);
+        }
+        //check for duplicates
+        for(int i =0; i<(counter-1); i++ ){ //counter -1 to account for the fact that the rotate marker is included
+            for(int j=0; j < i; j++){
+                if(rotorarray[i]==rotorarray[j]){
+                    return(INVALID_ROTOR_MAPPING);
                 }
-
             }
-            counter++;
 
         }
+        counter++;
+
+    }
+
+    char testing_char;
+    in.open(filename);
+    if (in.is_open()) {
+      while (in >> testing_char) {
+        if (!isdigit(testing_char)) {
+
+      return NON_NUMERIC_CHARACTER;
+        }
+      }
+    }
+    in.close();
+
     //setting the last character as the rotate marker
     rotate_marker=rotorarray[26];
 

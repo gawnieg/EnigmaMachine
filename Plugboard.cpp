@@ -120,7 +120,9 @@ if (in.is_open()) {
 }
 in.close();
 
-
+if(counter >26){
+    return (INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
+}
 
 
 

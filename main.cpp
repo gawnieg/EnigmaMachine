@@ -9,7 +9,7 @@
 #include <algorithm>
 #include "errors.h"
 
-// #define COMMENTS_ON
+#define COMMENTS_ON
 
 using namespace std;
 
@@ -21,8 +21,12 @@ int main(int argc, char** argv){
 
     int rotornumber = 1;
     int mainnumrotors = argc-4;
+    int errorcode=0;
 
     if(argc < 3){
+        return (INSUFFICIENT_NUMBER_OF_PARAMETERS);
+    }
+    if(argc==4){
         return (INSUFFICIENT_NUMBER_OF_PARAMETERS);
     }
 
@@ -31,7 +35,7 @@ int main(int argc, char** argv){
         norotors = true;
     }
 
-    int errorcode=0;
+
 
     Plugboard *plugb = new Plugboard();//will need to error check to see if this is the right array member being passed
     errorcode = plugb->Plugboard_load(argv[1]);
