@@ -13,10 +13,6 @@
 
 using namespace std;
 
-string delSpaces(string &str);
-
-
-
 
 
 
@@ -63,21 +59,20 @@ int main(int argc, char** argv){
 
 
     char input_char;
-    string input_sentance;
+
     //cout << "please input an sentence to be encrypted, terminated by a full stop" << endl;
-    // cin  >>ws>>  input_sentance;
-
-
-    int a=0;
     char encrypted_sentence [500];
+    int a=0;
 
 
 
     while(cin  >>ws>>  input_char){
-
-
-
         #ifdef COMMENTS_ON
+        if(input_char=='.'){
+            break;
+        }
+
+
         cout << "debugging - the int version of the character is " << (int)input_char <<endl;
         #endif
         if( ((int)input_char < 65) || ((int)input_char >122) || (((int)input_char >90) && ((int)input_char <97)) ){
@@ -146,26 +141,22 @@ int main(int argc, char** argv){
         transfer_char = plugb->plugboard_convert(transfer_char);
         cout << transfer_char;
 
+        encrypted_sentence[a]=transfer_char;
+        a++;
+
 
         #ifdef COMMENTS_ON
         cout << "The encrypted character is " << transfer_char <<endl;
         #endif
 
         //cout << "encoded character is : " << enigma.encode(input_char) << endl;
-        a++;
+
         #ifdef COMMENTS_ON
         cout << "---------------------------------------------------------------" <<endl;
         #endif
     }
 
 
-
-    #ifdef COMMENTS_ON
-    cout << "The encrypted_sentence is " <<endl;
-    #endif
-    for( int i=0; i<a; i++){
-        cout << encrypted_sentence[i];
-    }
     cout << endl; //print blank line at end for readability
     #ifdef COMMENTS_ON
     cout << "The number of rotations for rotor1 is " << enigma.number_rot_comp[0] << endl;
@@ -173,7 +164,15 @@ int main(int argc, char** argv){
     cout << "The number of rotations for rotor3 is " << enigma.number_rot_comp[2] << endl;
 
     cout << endl; //print blank line at end for readability
+
+
+
+    for(int i =0; i < a; i++){
+        cout<< encrypted_sentence[i];
+
+    }
     #endif
+
 
 
 if(errorcode==0){
