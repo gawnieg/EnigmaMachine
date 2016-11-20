@@ -50,6 +50,7 @@ int input_int;
     if(index_m ==false){
         //map to themself!
         return input_char;
+
     }
 
 
@@ -81,74 +82,62 @@ return index_match;
 
 int Plugboard::Plugboard_load(const char* filename){
 
+ifstream in;
 
-    ifstream in;
-    in.open(filename);
-        if(!in){
-            return (ERROR_OPENING_CONFIGURATION_FILE);
-        }
-        //put in array
-        //int pbarray[26];
+in.open(filename);
+if (in.is_open()) {
+    while (in >> pbarray[counter]) {
+        if (pbarray[counter] < 0 || pbarray[counter] > 25) {
 
-        //printing for testing
-
-
-
-        while(!in.eof()){
-
-            in >>ws >>  pbarray[counter];
-            //this is exiting out of the loop for the last character
-            if(in.rdstate()>0){
-                break;
-            }
-            //check if everything is a digit
-            if(isdigit(pbarray[counter])==true){
-                return (NON_NUMERIC_CHARACTER);
-
-            }
-            //check for outside of range
-            if(pbarray[counter]> 25 ||pbarray[counter]<0 ){
                 return (INVALID_INDEX);
             }
-            //check for duplicates
-            for(int i =0; i<counter; i++ ){
-                for(int j=0; j < i; j++){
-                    if(pbarray[i]==pbarray[j]){
-                        return (IMPOSSIBLE_PLUGBOARD_CONFIGURATION);
-                    }
-                }
+    counter++;
+    }
+  in.close();
+}
 
-            }
-            counter++;
+else if (in.fail()) {
+    cerr << "cannot open" << filename << endl;
+    return (ERROR_OPENING_CONFIGURATION_FILE);
+}
+for (int i = 0; i < counter; i++) {
+  for (int j = 0; j < counter; j++) {
+    if ((pbarray[i] == pbarray[j]) && (i != j)) {
 
-        }
+  return (IMPOSSIBLE_PLUGBOARD_CONFIGURATION);
+    }
+  }
+}
+if (counter % 2 == 1) {
+
+  return (INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
+}
+
+char test_char;
+in.open(filename);
+if (in.is_open()) {
+  while (in >> test_char) {
+    if (!isdigit(test_char)) {
+
+  return NON_NUMERIC_CHARACTER;
+    }
+  }
+}
+in.close();
 
 
-        //check if there is an even number of array memebers
-        if(counter%2 !=0){
-
-            return(INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
-
-        }
-
-
-
-
-
-    in.close();
 
     #ifdef COMMENTS_ON
     //printing array - debugging
     for(int i =0; i < counter; i++){
-
-                cout << "the pbarray member  is " << pbarray[i] <<"   which is " << i<< endl;
-                if(i%2!=0 ){
-                    cout<<"----------"<<endl;
-                }
+        cout << "the pbarray member  is " << pbarray[i] <<"   which is " << i<< endl;
+        if(i%2!=0 ){
+        cout<<"----------"<<endl;
+    }
 
     }
     #endif
 
-return 0 ;
+return (NO_ERROR) ;
 
 }

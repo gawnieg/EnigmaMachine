@@ -21,8 +21,8 @@ int Reflector_load(const char* filename);
 
 private:
 
-int rfarray[26];//putting here and not in public
-
+int rfarray[30];//putting here and not in public
+int counter=0;
 
 };
 

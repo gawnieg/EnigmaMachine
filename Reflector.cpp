@@ -63,18 +63,14 @@ char Reflector::reflect(char input_char){
 }
 
 int Reflector::Reflector_load(const char* filename){
-    #ifdef COMMENTS_ON
-    cout << "up in the reflector constructor " << filename <<endl;
-    #endif
 
 
     ifstream in;
     in.open(filename);
-        if(!in){
+
+		if(in.fail()){
             return (ERROR_OPENING_CONFIGURATION_FILE);
         }
-        //put in array
-        //int rfarray[26];
 
 
         int counter=0;
@@ -86,10 +82,7 @@ int Reflector::Reflector_load(const char* filename){
             if(in.rdstate()>0){
                 break;
             }
-            //check if everything is a digit
-            if(isdigit(rfarray[counter])==true){
-                return (NON_NUMERIC_CHARACTER);
-            }
+
             //check for outside of range
             if(rfarray[counter]> 25 ||rfarray[counter]<0 ){
             return(INVALID_INDEX);
@@ -106,6 +99,21 @@ int Reflector::Reflector_load(const char* filename){
             counter++;
 
         }//end of while loop for reading file
+		in.close();
+
+		char test_char;
+  	  	in.open(filename);
+  	  	if (in.is_open()) {
+  	  	while (in >> test_char) {
+  	      	if (!isdigit(test_char)) {
+  				cerr<< "NON_NUMERIC_CHARACTER" <<endl;
+  				return (NON_NUMERIC_CHARACTER);
+  	      }
+  	    }
+  	  }
+  	  in.close();
+
+
 
         //check if correct number of pairs
         if(counter != 26){
@@ -121,7 +129,10 @@ int Reflector::Reflector_load(const char* filename){
 					}
         }
         #endif
-        in.close();
+
 
         return 0;
+
+
+
 }

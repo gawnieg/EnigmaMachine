@@ -149,7 +149,7 @@ int main(int argc, char** argv){
         cout << "The encrypted character is " << transfer_char <<endl;
         #endif
 
-        //cout << "encoded character is : " << enigma.encode(input_char) << endl;
+        
 
         #ifdef COMMENTS_ON
         cout << "---------------------------------------------------------------" <<endl;
