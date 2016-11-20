@@ -131,7 +131,7 @@ int Reflector::Reflector_load(const char* filename){
         #endif
 
 
-        return 0;
+        return (NO_ERROR);
 
 
 

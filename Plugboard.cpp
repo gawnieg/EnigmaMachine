@@ -108,11 +108,6 @@ for (int i = 0; i < counter; i++) {
     }
   }
 }
-if (counter % 2 == 1) {
-
-  return (INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
-}
-
 char test_char;
 in.open(filename);
 if (in.is_open()) {
@@ -124,6 +119,17 @@ if (in.is_open()) {
   }
 }
 in.close();
+
+
+
+
+
+
+if (counter % 2 == 1) {
+
+  return (INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
+}
+
 
 
 

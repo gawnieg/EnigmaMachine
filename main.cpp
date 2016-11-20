@@ -27,7 +27,7 @@ int main(int argc, char** argv){
     }
 
     bool norotors=false;
-    if(mainnumrotors == 0){
+    if(mainnumrotors <= 0){
         norotors = true;
     }
 
@@ -149,7 +149,7 @@ int main(int argc, char** argv){
         cout << "The encrypted character is " << transfer_char <<endl;
         #endif
 
-        
+
 
         #ifdef COMMENTS_ON
         cout << "---------------------------------------------------------------" <<endl;

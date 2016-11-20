@@ -31,7 +31,7 @@ char Rotor::in_out(char input_char, bool way_back,  int numberofrotationsarray [
         cout << "way back? " << way_back <<endl;
 
         #endif
-        int nextrotornumber = rotornumber +1; // is the next one over
+
 
 if(way_back==false){
 
@@ -159,12 +159,7 @@ return transfer_char;
 
  }    /////////////////end of backward section
 
-
-
-
-return 'F'; //if goosed
-
-
+return 0; //this will not execute as way_back will be either true or false.
 
 }//end bracket for in_out
 
@@ -260,7 +255,7 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
 
     ifstream in;
     in.open(filename);
-        if(!in){
+        if(in.fail()){
             return (ERROR_OPENING_CONFIGURATION_FILE);
         }
         //put in array
@@ -348,4 +343,6 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     printrotorarray(rotorarray);
     cout << "rotor is now initialised" <<endl;
     #endif
+
+    return NO_ERROR;
 }
