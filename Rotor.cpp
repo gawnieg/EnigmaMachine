@@ -65,7 +65,8 @@ if(way_back==false){
 
     transfer_char_before = transfer_char;
 
-    transfer_char = (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%26));
+
+        transfer_char = (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%26));
 
 
     if(transfer_char > 'Z' ){
@@ -103,7 +104,6 @@ return transfer_char;
         (char)((int)transfer_char + (numberofrotationsarray[rotornumber])%26) <<\
         "which is adding" << (numberofrotationsarray[rotornumber])%26 << endl;
         #endif
-
 
 
         transfer_char = (char)((int)transfer_char + ((numberofrotationsarray[rotornumber])%26));

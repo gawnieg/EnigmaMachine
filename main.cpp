@@ -167,10 +167,16 @@ for(int i =0; i < mainnumrotors; i++ ){
 
 
 
+        bool tempbool2=false;
 
         if(norotors==false&&tempbool==true){
-            enigma.rotorarray[1]->rotate(1, enigma.number_rot_comp);
+            tempbool2 = enigma.rotorarray[1]->rotate(1, enigma.number_rot_comp);
         }
+        if(norotors==false&&tempbool2==true){
+            enigma.rotorarray[2]->rotate(2, enigma.number_rot_comp);
+        }
+
+
 
 
 
