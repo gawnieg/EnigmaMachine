@@ -4,8 +4,8 @@
 #include "Rotor.h"
 #include "errors.h"
 //
-// #define COMMENTS_ON
-// #define ARRAYPRINTING
+#define COMMENTS_ON
+#define ARRAYPRINTING
 
 
 using namespace std;
@@ -15,78 +15,77 @@ using namespace std;
 Rotor::Rotor(){
 
         //intentionally blank
+}//end ofrotor constructor with position array
 
 
-    }//end ofrotor constructor with position array
+char Rotor::in_out(char input_char, bool way_back,  int numberofrotationsarray [5],\
+     int rotornumber){
 
 
-char Rotor::in_out(char input_char, bool way_back,  int numberofrotationsarray [5], int rotornumber){
+	int input_int;
+    #ifdef COMMENTS_ON
+    cout << "character is " << input_char<< endl;
+    cout << "which as an integer is " << (int)input_char - 65 << endl;
+    cout << "way back? " << way_back <<endl;
+
+    #endif
 
 
-    	int input_int;
+    if(way_back==false){
+
+
+        // standard ie if way_back is false
+        //if way_back ==true then different mapping is required
+        char  transfer_char = input_char;
+        char transfer_char_before;
+        transfer_char_before = transfer_char;
+
+        //then mapping internally
+        input_int= (int)transfer_char - 65 ;
         #ifdef COMMENTS_ON
-        cout << "character is " << input_char<< endl;
-        cout << "which as an integer is " << (int)input_char - 65 << endl;
-        cout << "way back? " << way_back <<endl;
-
+            printrotorarray(rotorarray);
+            if(way_back == false){
+                    cout << "IN_OUT has found the matching number to be "\
+                    << rotorarray[input_int] << " which as an char is " <<\
+                     (char)(rotorarray[input_int]+65) <<endl;
+            }
         #endif
 
 
-if(way_back==false){
+
+        transfer_char = (char)(rotorarray[input_int]+65); // this does the internal mapping.
 
 
-    // standard ie if way_back is false
-    //if way_back ==true then different mapping is required
-    char  transfer_char = input_char;
-    char transfer_char_before;
-    transfer_char_before = transfer_char;
+        #ifdef COMMENTS_ON
+        cout << "   Now changing to account for output rotor" <<rotornumber <<\
+        " rotation relativity " \
+        << (char)((int)transfer_char - ((numberofrotationsarray[rotornumber])%26)) <<endl;
+        #endif
 
-    //then mapping internally
-    input_int= (int)transfer_char - 65 ;
-    #ifdef COMMENTS_ON
-        printrotorarray(rotorarray);
-        if(way_back == false){
-                cout << "IN_OUT has found the matching number to be "\
-                << rotorarray[input_int] << " which as an char is " <<\
-                 (char)(rotorarray[input_int]+65) <<endl;
+        transfer_char_before = transfer_char;
+
+
+            transfer_char = (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%26));
+
+
+        if(transfer_char > 'Z' ){
+            #ifdef COMMENTS_ON
+            cout << "greater than Z so have to reset" << endl;
+            #endif
+            transfer_char='A' + ((numberofrotationsarray[rotornumber])%26)-('Z'-transfer_char_before) -1;
+
         }
-    #endif
+        if(transfer_char < 'A' ){
+            #ifdef COMMENTS_ON
+            cout << "less than A  so have to reset!!!!!!!!!!!!!!!!!" << endl;
+            #endif
+            transfer_char = 'Z' - ((numberofrotationsarray[rotornumber])%26)+(transfer_char_before-'A') +1 ;
 
+        }
 
+        return transfer_char;
 
-    transfer_char = (char)(rotorarray[input_int]+65); // this does the internal mapping.
-
-
-    #ifdef COMMENTS_ON
-    cout << "   Now changing to account for output rotor" <<rotornumber <<\
-    " rotation relativity " \
-    << (char)((int)transfer_char - ((numberofrotationsarray[rotornumber])%26)) <<endl;
-    #endif
-
-    transfer_char_before = transfer_char;
-
-
-        transfer_char = (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%26));
-
-
-    if(transfer_char > 'Z' ){
-        #ifdef COMMENTS_ON
-        cout << "greater than Z so have to reset" << endl;
-        #endif
-        transfer_char='A' + ((numberofrotationsarray[rotornumber])%26)-('Z'-transfer_char_before) -1;
-
-    }
-    if(transfer_char < 'A' ){
-        #ifdef COMMENTS_ON
-        cout << "less than A  so have to reset!!!!!!!!!!!!!!!!!" << endl;
-        #endif
-        transfer_char = 'Z' - ((numberofrotationsarray[rotornumber])%26)+(transfer_char_before-'A') +1 ;
-
-    }
-
-return transfer_char;
-
-} //end of forwards section
+    } //end of forwards section
 
 
 
@@ -140,23 +139,19 @@ return transfer_char;
         }
         #ifdef COMMENTS_ON
         cout << "found mapped character on way back to be  " << (char)(index_match_back + 65) <<endl;
-
-
-            printrotorarray(rotorarray);
-            if(way_back == false){
-                    cout << "IN_OUT has found the matching number to be "\
-                    << rotorarray[input_int] << " which as an char is " <<\
-                     (char)(rotorarray[input_int]+65) <<endl;
+        printrotorarray(rotorarray);
+        if(way_back == false){
+            cout << "IN_OUT has found the matching number to be "\
+                << rotorarray[input_int] << " which as an char is " <<\
+                    (char)(rotorarray[input_int]+65) <<endl;
             }
         #endif
 
         transfer_char = (char)(index_match_back + 65); // this does the mapping
+        return transfer_char;
 
 
-return transfer_char;
-
-
- }    /////////////////end of backward section
+    }    //end of backward section
 
 return 0; //this will not execute as way_back will be either true or false.
 
@@ -168,8 +163,6 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
 
     //increment the number of rotations index for this rotor.
     numberofrotationsarray[whatrotor]++;
-
-
 
     #ifdef COMMENTS_ON
 	cout <<"Rotor.Rotate STARTING 1 ROTATE FOR ROTOR!" <<endl;
@@ -189,17 +182,9 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
     #ifdef COMMENTS_ON
 	cout <<"printing array after rotation" <<endl;
     printrotorarray(rotorarray);
+    cout << "rotate_marker for this rotor is " << rotate_marker <<endl;
     #endif
 
-    /*could set flag that indicates when notch has been reached
-    and then send flag to enigma class indicating that it should rotate the next
-    rotor . true if notch reached, false if not */
-#ifdef COMMENTS_ON
-    cout << "rotate_marker for this rotor is " << rotate_marker <<endl;
-
-#endif
-
-    //was rotorarray[0]== rotatemarker
     if(starting_rotate_marker== numberofrotationsarray[whatrotor]||\
         numberofrotationsarray[whatrotor]%rotate_marker == 0){
         return true;
@@ -212,20 +197,19 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
 
 }
 
-void Rotor::printrotorarray(int const (&rotorarray)[30]){
-#ifdef ARRAYPRINTING
-cout << "Printing rotor array" << endl;
-    for(int i=0; i<26; i++){
-		cout << rotorarray[i] << " at element " << i << "  "<< \
-        (char)(rotorarray[i]+65) << " at " << (char)(i+65) <<endl;
-    }
-#endif
-
-
+void Rotor::printrotorarray(int const (&rotorarray)[27]){
+    #ifdef ARRAYPRINTING
+    cout << "Printing rotor array" << endl;
+        for(int i=0; i<26; i++){
+    		cout << rotorarray[i] << " at element " << i << "  "<< \
+            (char)(rotorarray[i]+65) << " at " << (char)(i+65) <<endl;
+        }
+    #endif
 }
 
 
-int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumber, int (&number_rot_comp)[5]){
+int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumber,\
+     int (&number_rot_comp)[5]){
 
 
     ifstream in_pos;
@@ -239,9 +223,6 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         return (NO_ROTOR_STARTING_POSITION);
     }
 
-
-
-
     char test_char;
 
     if (in_pos.is_open()) {
@@ -253,8 +234,6 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
       }
     }
     in_pos.close();
-
-
 
     int pos_counter=0;
     in_pos.open(pos_file);
@@ -319,18 +298,10 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
                     return(INVALID_ROTOR_MAPPING);
                 }
             }
-
         }
         counter++;
-
     }
     in.close();
-
-
-
-
-
-
 
     //setting the last character as the rotate marker
     rotate_marker=rotorarray[26];
@@ -340,9 +311,6 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         cerr << "Not all inputs mapped in rotor file: rotor.rot" <<endl;
         return(INVALID_ROTOR_MAPPING);
     }
-
-
-
 
     #ifdef COMMENTS_ON
     cout << "printing upon construction " << endl;
@@ -382,15 +350,8 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     cout << "number of rotations array after" <<number_rot_comp[rotornumber-1]<< endl;
     #endif
 
-
-
-
-
-
-
     for (int i =0; i < pos_array[initialrotationsindex]; i++) {
-            int temp=0;
-
+        int temp=0;
             for(int i =25; i > -1  ; i--){
                 temp=rotorarray[25];
                 rotorarray[25]=rotorarray[i];

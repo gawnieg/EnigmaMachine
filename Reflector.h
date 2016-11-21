@@ -13,16 +13,16 @@ using namespace std;
 class Reflector{
 
 public:
-    //constructors
+
     Reflector();
-char reflect(char input_char);
-int Reflector_load(const char* filename);
+    char reflect(char input_char); // to carry out mapping
+    int Reflector_load(const char* filename); //to load and error check
 
 
 private:
 
-int rfarray[30];//putting here and not in public
-int counter=0;
+    int rfarray[26]; // to store mapping array
+    int counter=0;// for indexing mapping array
 
 };
 

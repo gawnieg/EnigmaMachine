@@ -9,7 +9,7 @@
 #include <algorithm>
 #include "errors.h"
 
-// #define COMMENTS_ON
+#define COMMENTS_ON
 
 using namespace std;
 
@@ -103,23 +103,34 @@ for(int i =0; i < mainnumrotors; i++ ){
         char transfer_char = input_char;
 
         //this section rotates the rotors
-    //     if(norotors==false){
-    //         if(enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp)==true){
-    //             #ifdef COMMENTS_ON
-    //             cout << "rotation of second required" << endl;
-    //             #endif
-    //             for(int i =0; i < mainnumrotors; i++ ){//rotation
-    //                 if(enigma.rotorarray[i+1]->rotate(i+1, enigma.number_rot_comp)!=true){
-    //                     break;
-    //                 }
-    //
-    //         }
-    //     }
-    // }
-    bool tempbool=false;
-    if(norotors==false){
-         tempbool  = enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp);
+        if(norotors==false){
+            if(enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp)==true){
+                #ifdef COMMENTS_ON
+                cout << "rotation of second required" << endl;
+                #endif
+                for(int i =0; i < mainnumrotors; i++ ){//rotation
+                    if(enigma.rotorarray[i+1]->rotate(i+1, enigma.number_rot_comp)!=true){
+                        break;
+                    }
+
+            }
+        }
     }
+
+    /*
+    Frustratingly, my machine does not work correctly.
+    The issue lies within the notches. I am rotating the second rotor immediately
+    after the first rotor reaches the notch, and then passing the signal, as this
+    is what I interpretted the machine to do from the specification.
+    Comparing my machines outputs with others finds that the signal goes
+    faulty on the second rotation of the second rotor. If I was using the mapping
+    of the second rotor before the rotation, I would get one more correct character
+    but the remainder would not work like this. Oddly, the output returns to the correct
+    output after a few characters - this is why I have left it in its current state,
+    I have spent much time trying to find the error and cannot, and would be interested
+    to see if the corrector can spot it.
+
+    */
 
 
 
@@ -166,29 +177,6 @@ for(int i =0; i < mainnumrotors; i++ ){
         cout << transfer_char;
 
 
-
-        bool tempbool2=false;
-
-        if(norotors==false&&tempbool==true){
-            tempbool2 = enigma.rotorarray[1]->rotate(1, enigma.number_rot_comp);
-        }
-        if(norotors==false&&tempbool2==true){
-            enigma.rotorarray[2]->rotate(2, enigma.number_rot_comp);
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         #ifdef COMMENTS_ON
         cout << "The encrypted character is " << transfer_char <<endl;
         encrypted_sentence[a]=transfer_char;
@@ -225,8 +213,11 @@ for(int i =0; i < mainnumrotors; i++ ){
 if(errorcode==0){
     delete plugb;
     delete reflec;
-    // delete [] rotor_r;
+
 }
+// if(norotors==false){
+//     delete rotor_r ;
+// }
 
 
 return (NO_ERROR);
