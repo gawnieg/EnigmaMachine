@@ -102,19 +102,26 @@ for(int i =0; i < mainnumrotors; i++ ){
         #endif
         char transfer_char = input_char;
 
-        if(norotors==false){
-            if(enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp)==true){
-                #ifdef COMMENTS_ON
-                cout << "rotation of second required" << endl;
-                #endif
-                for(int i =0; i < mainnumrotors; i++ ){//rotation
-                    if(enigma.rotorarray[i+1]->rotate(i+1, enigma.number_rot_comp)!=true){
-                        break;
-                    }
-
-            }
-        }
+        //this section rotates the rotors
+    //     if(norotors==false){
+    //         if(enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp)==true){
+    //             #ifdef COMMENTS_ON
+    //             cout << "rotation of second required" << endl;
+    //             #endif
+    //             for(int i =0; i < mainnumrotors; i++ ){//rotation
+    //                 if(enigma.rotorarray[i+1]->rotate(i+1, enigma.number_rot_comp)!=true){
+    //                     break;
+    //                 }
+    //
+    //         }
+    //     }
+    // }
+    bool tempbool=false;
+    if(norotors==false){
+         tempbool  = enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp);
     }
+
+
 
 
 
@@ -126,7 +133,7 @@ for(int i =0; i < mainnumrotors; i++ ){
         #ifdef COMMENTS_ON
         cout << "Output from plugboard is " << transfer_char << endl;
         #endif
-        ///section for way out
+        ///section for way out mapping
         if(norotors==false){
             for(int i =0; i < enigma.number_of_rotors_enigma; i++){
                 #ifdef COMMENTS_ON
@@ -136,7 +143,7 @@ for(int i =0; i < mainnumrotors; i++ ){
             }
         }
         #ifdef COMMENTS_ON
-        cout << "########################Now sending to reflector#####################" << endl;
+        cout << "###################Now sending to reflector################" << endl;
         #endif
         //send to reflector
         transfer_char = reflec->reflect(transfer_char);
@@ -157,6 +164,21 @@ for(int i =0; i < mainnumrotors; i++ ){
         //NOW SEND TO PLUGBOARD
         transfer_char = plugb->plugboard_convert(transfer_char);
         cout << transfer_char;
+
+
+
+
+        if(norotors==false&&tempbool==true){
+            enigma.rotorarray[1]->rotate(1, enigma.number_rot_comp);
+        }
+
+
+
+
+
+
+
+
 
 
 
@@ -204,14 +226,3 @@ if(errorcode==0){
 return (NO_ERROR);
 
 } //END OF MAIN
-
-
-/*
-To Do:
-1. be able to pass in strings from the commmand LINE
-2. construct enigma so that it can have unlimited rotors.
-4. make rotor3 rotate in a three rotor setup
-6. see what you can make private without too much hassle. .
-
-
-*/

@@ -60,7 +60,7 @@ if(way_back==false){
     #ifdef COMMENTS_ON
     cout << "   Now changing to account for output rotor" <<rotornumber <<\
     " rotation relativity " \
-    << (char)((int)transfer_char - (numberofrotationsarray[rotornumber]%26)) <<endl;
+    << (char)((int)transfer_char - ((numberofrotationsarray[rotornumber])%26)) <<endl;
     #endif
 
     transfer_char_before = transfer_char;
