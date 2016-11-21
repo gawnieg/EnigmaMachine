@@ -311,6 +311,10 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         for(int i =0; i<(counter-1); i++ ){ //counter -1 to account for the fact that the rotate marker is included
             for(int j=0; j < i; j++){
                 if(rotorarray[i]==rotorarray[j]){
+                    cerr << "Invalid mapping of input " << j << " to output "\
+                    << rotorarray[j] << " (output " << rotorarray[j] \
+                    << " is already mapped to from input " << i \
+                    << ") in rotor file: " << filename <<endl;
 
                     return(INVALID_ROTOR_MAPPING);
                 }
