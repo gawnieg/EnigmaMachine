@@ -4,8 +4,8 @@
 #include "Rotor.h"
 #include "errors.h"
 //
-#define COMMENTS_ON
-#define ARRAYPRINTING
+// #define COMMENTS_ON
+// #define ARRAYPRINTING
 
 
 using namespace std;

@@ -9,7 +9,7 @@
 #include <algorithm>
 #include "errors.h"
 
-#define COMMENTS_ON
+// #define COMMENTS_ON
 
 using namespace std;
 
