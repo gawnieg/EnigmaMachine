@@ -121,7 +121,7 @@ if (in.is_open()) {
 in.close();
 
 if(counter >26){
-    cerr << "Incorrect number of parameters in plugboard file plugboard.pb " <<endl;
+    cerr << "Incorrect number of parameters in plugboard file plugboard.pb" <<endl;
     return (INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
 }
 
@@ -129,7 +129,7 @@ if(counter >26){
 
 
 if (counter % 2 == 1) {
- cerr << "Incorrect number of parameters in plugboard file plugboard.pb " <<endl;
+ cerr << "Incorrect number of parameters in plugboard file plugboard.pb" <<endl;
   return (INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS);
 }
 

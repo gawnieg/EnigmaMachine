@@ -89,12 +89,11 @@ for(int i =0; i < mainnumrotors; i++ ){
         if(input_char=='.'){
             break;
         }
-
-
-
         #endif
-        if( ((int)input_char < 65) || ((int)input_char >122) || (((int)input_char >90) && ((int)input_char <97)) ){
-            break;
+
+        if( (int)input_char < 65|| (int)input_char >90 ){
+            cerr << input_char<< " is not a valid input character (input characters must be upper case letters A-Z)!"<<endl;
+            return (INVALID_INPUT_CHARACTER);
         }
 
 

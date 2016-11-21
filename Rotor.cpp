@@ -229,9 +229,23 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     sets_position =true;
     ifstream in_pos;
     in_pos.open(pos_file);
-    if(!in_pos){
+    if(in_pos.fail()){
         return (ERROR_OPENING_CONFIGURATION_FILE);
     }
+    char test_char;
+
+    if (in_pos.is_open()) {
+      while (in_pos >> test_char) {
+        if (!isdigit(test_char)) {
+            cerr << "Non-numeric character in rotor positions file rotor.pos"<<endl;
+            return NON_NUMERIC_CHARACTER;
+        }
+      }
+    }
+    in_pos.close();
+
+
+
     int pos_counter=0;
     while(!in_pos.eof()){
         in_pos  >>  pos_array[pos_counter];
@@ -239,28 +253,12 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         if(in_pos.rdstate()>0){
             break;
         }
-
-
-
         if(pos_array[pos_counter]> 25 ||pos_array[pos_counter]<0 ){
             return(INVALID_INDEX);
         }
         pos_counter++;
     }
 
-    in_pos.close();
-
-
-    char test_char;
-    in_pos.open(filename);
-    if (in_pos.is_open()) {
-      while (in_pos >> test_char) {
-        if (!isdigit(test_char)) {
-
-      return NON_NUMERIC_CHARACTER;
-        }
-      }
-    }
     in_pos.close();
 
 
@@ -292,6 +290,7 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         for(int i =0; i<(counter-1); i++ ){ //counter -1 to account for the fact that the rotate marker is included
             for(int j=0; j < i; j++){
                 if(rotorarray[i]==rotorarray[j]){
+
                     return(INVALID_ROTOR_MAPPING);
                 }
             }
@@ -306,8 +305,8 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     if (in.is_open()) {
       while (in >> testing_char) {
         if (!isdigit(testing_char)) {
-
-      return NON_NUMERIC_CHARACTER;
+            cerr << "Non-numeric character for mapping in rotor file rotor.rot" <<endl;
+            return NON_NUMERIC_CHARACTER;
         }
       }
     }
@@ -318,6 +317,7 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
 
 
     if(counter != 27){
+        cerr << "Not all inputs mapped in rotor file: rotor.rot" <<endl;
         return(INVALID_ROTOR_MAPPING);
     }
 
