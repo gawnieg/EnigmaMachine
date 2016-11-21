@@ -9,7 +9,7 @@
 #include <algorithm>
 #include "errors.h"
 
-#define COMMENTS_ON
+
 
 using namespace std;
 
@@ -97,17 +97,11 @@ for(int i =0; i < mainnumrotors; i++ ){
         }
 
 
-        #ifdef COMMENTS_ON
-        cout << "number of rotors is " << enigma.number_of_rotors_enigma <<  endl;
-        #endif
         char transfer_char = input_char;
 
         //this section rotates the rotors
         if(norotors==false){
             if(enigma.rotorarray[0]->rotate(0, enigma.number_rot_comp)==true){
-                #ifdef COMMENTS_ON
-                cout << "rotation of second required" << endl;
-                #endif
                 for(int i =0; i < mainnumrotors; i++ ){//rotation
                     if(enigma.rotorarray[i+1]->rotate(i+1, enigma.number_rot_comp)!=true){
                         break;
@@ -136,38 +130,20 @@ for(int i =0; i < mainnumrotors; i++ ){
 
 
 
-        #ifdef COMMENTS_ON
-        cout << "-----------------BEGINNING ENCRYPTION-------------------" <<endl;
-        #endif
+
         //send to plugboard
         transfer_char = plugb->plugboard_convert(transfer_char);
-        #ifdef COMMENTS_ON
-        cout << "Output from plugboard is " << transfer_char << endl;
-        #endif
         ///section for way out mapping
         if(norotors==false){
             for(int i =0; i < enigma.number_of_rotors_enigma; i++){
-                #ifdef COMMENTS_ON
-                cout <<"sending character to in_out on way out" << endl;
-                #endif
                 transfer_char = (enigma.rotorarray[i])->in_out(transfer_char, 0, enigma.number_rot_comp , i); // as
             }
         }
-        #ifdef COMMENTS_ON
-        cout << "###################Now sending to reflector################" << endl;
-        #endif
         //send to reflector
         transfer_char = reflec->reflect(transfer_char);
-        #ifdef COMMENTS_ON
-        cout << "Output from reflector is " << transfer_char << endl;
-        cout << "enigma number of rotors is " << enigma.number_of_rotors_enigma << endl;
-        #endif
 
         if(norotors==false){
             for(int i = enigma.number_of_rotors_enigma-1; i > -1; i--){
-                #ifdef COMMENTS_ON
-                cout <<"sending character to in_out on way back for rotor index "<<i  << endl;
-                #endif
                 transfer_char = (enigma.rotorarray[i])->in_out(transfer_char, 1, enigma.number_rot_comp, i);
             }
         }
@@ -176,37 +152,7 @@ for(int i =0; i < mainnumrotors; i++ ){
         transfer_char = plugb->plugboard_convert(transfer_char);
         cout << transfer_char;
 
-
-        #ifdef COMMENTS_ON
-        cout << "The encrypted character is " << transfer_char <<endl;
-        encrypted_sentence[a]=transfer_char;
-        a++;
-        #endif
-
-
-
-        #ifdef COMMENTS_ON
-        cout << "---------------------------------------------------------------" <<endl;
-        #endif
     }
-
-
-    cout << endl; //print blank line at end for readability
-    #ifdef COMMENTS_ON
-    cout << "The number of rotations for rotor1 is " << enigma.number_rot_comp[0] << endl;
-    cout << "The number of rotations for rotor2 is " << enigma.number_rot_comp[1]<< endl;
-    cout << "The number of rotations for rotor3 is " << enigma.number_rot_comp[2] << endl;
-
-    cout << endl; //print blank line at end for readability
-
-
-
-    for(int i =0; i < a; i++){
-        cout<< encrypted_sentence[i];
-
-    }
-    cout << endl; //print blank line at end for readability
-    #endif
 
 
 
