@@ -4,8 +4,8 @@
 #include "Rotor.h"
 #include "errors.h"
 //
-#define COMMENTS_ON
-#define ARRAYPRINTING
+// #define COMMENTS_ON
+// #define ARRAYPRINTING
 
 
 using namespace std;
@@ -199,7 +199,7 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
 #endif
 
     //was rotorarray[0]== rotatemarker
-    if(rotate_marker== numberofrotationsarray[whatrotor]||\
+    if(starting_rotate_marker== numberofrotationsarray[whatrotor]||\
         numberofrotationsarray[whatrotor]%rotate_marker == 0){ // -1 on rhs IF THE TOP POSITION IS EQUAL TO THE NOTCH T
         return true;
 
@@ -224,7 +224,7 @@ cout << "Printing rotor array" << endl;
 }
 
 
-int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumber){
+int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumber, int (&number_rot_comp)[5]){
 
     sets_position =true;
     ifstream in_pos;
@@ -241,17 +241,6 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         }
 
 
-        char test_char;
-        in_pos.open(filename);
-        if (in_pos.is_open()) {
-          while (in_pos >> test_char) {
-            if (!isdigit(test_char)) {
-
-          return NON_NUMERIC_CHARACTER;
-            }
-          }
-        }
-        in_pos.close();
 
         if(pos_array[pos_counter]> 25 ||pos_array[pos_counter]<0 ){
             return(INVALID_INDEX);
@@ -259,6 +248,19 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         pos_counter++;
     }
 
+    in_pos.close();
+
+
+    char test_char;
+    in_pos.open(filename);
+    if (in_pos.is_open()) {
+      while (in_pos >> test_char) {
+        if (!isdigit(test_char)) {
+
+      return NON_NUMERIC_CHARACTER;
+        }
+      }
+    }
     in_pos.close();
 
 
@@ -328,25 +330,43 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     printrotorarray(rotorarray);
     #endif
 
-//moving
+//initialising rotor to starting position
 
 
-    int initialrotationsindex = 0;
-    //change this to sizeofarray - x. This is currently the
-    if(rotornumber == 1){
-        initialrotationsindex = 2;
-    }
-    if(rotornumber == 2){
-        initialrotationsindex = 1;
-    }
-    if(rotornumber == 3){
-        initialrotationsindex = 0;
-    }
+    int initialrotationsindex = pos_counter-rotornumber;
 
     // plus one as position file is read from left to right
     #ifdef COMMENTS_ON
     cout << "the offset required is : " << pos_array[initialrotationsindex] << endl;
+    cout << "rotor number " << rotornumber <<endl;
+    cout << "pos counter " << pos_counter <<endl;
+    for(int i =0; i < 3; i++){
+        cout << "the poss array is " << pos_array[i]<<endl;
+    }
+    cout << "number of rotations array before" <<number_rot_comp[rotornumber-1]<< endl;
+
+    cout<< "rotate_marker" << rotate_marker<<endl;
+
+
+
     #endif
+    //adjusting for intial position
+    number_rot_comp[rotornumber-1]=number_rot_comp[rotornumber-1]+\
+    pos_array[initialrotationsindex];
+
+    starting_rotate_marker= number_rot_comp[rotornumber-1];
+
+
+    //adjusting number of rotations complete
+    #ifdef COMMENTS_ON
+    cout << "number of rotations array after" <<number_rot_comp[rotornumber-1]<< endl;
+    #endif
+
+
+
+
+
+
 
     for (int i =0; i < pos_array[initialrotationsindex]; i++) {
             int temp=0;
@@ -357,6 +377,9 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
                 rotorarray[i]=temp;
             }
     }
+
+
+
     #ifdef COMMENTS_ON
     cout << "printing after position initialisation " << endl;
     printrotorarray(rotorarray);

@@ -24,14 +24,6 @@ public:
 	Plugboard* plugboard;
 	Reflector* reflector;
 	Rotor* rotorarray[5]; // was 5
-	
-	
-	// consider what happens when you set the initial positioning! \
-	must set the number_rot_comp array?
-	//also consider what happens to the notches. 
-
-
-
 
     int number_rot_comp[5]={0,0,0,0,0};
 

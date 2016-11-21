@@ -9,7 +9,7 @@
 #include <algorithm>
 #include "errors.h"
 
-#define COMMENTS_ON
+// #define COMMENTS_ON
 
 using namespace std;
 
@@ -53,21 +53,29 @@ int main(int argc, char** argv){
     for(int i =0; i < mainnumrotors; i++ ){
 
         rotor_r[i] = new Rotor();
-        rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber);
-        rotornumber++;
+        // rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber,enigma.number_rot_comp);
+        // rotornumber++;
 
     }
+Enigma enigma(plugb,reflec,rotor_r, mainnumrotors); // the 2 is the number of rotors
 
+for(int i =0; i < mainnumrotors; i++ ){
 
-    Enigma enigma(plugb,reflec,rotor_r, mainnumrotors); // the 2 is the number of rotors
+    rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber,enigma.number_rot_comp);
+    rotornumber++;
+
+}
+
 
 
     char input_char;
 
     //cout << "please input an sentence to be encrypted, terminated by a full stop" << endl;
+
+    #ifdef COMMENTS_ON
     char encrypted_sentence [500];
     int a=0;
-
+    #endif
 
 
     while(cin  >>ws>>  input_char){
@@ -77,7 +85,7 @@ int main(int argc, char** argv){
         }
 
 
-        cout << "debugging - the int version of the character is " << (int)input_char <<endl;
+
         #endif
         if( ((int)input_char < 65) || ((int)input_char >122) || (((int)input_char >90) && ((int)input_char <97)) ){
             break;
@@ -145,12 +153,13 @@ int main(int argc, char** argv){
         transfer_char = plugb->plugboard_convert(transfer_char);
         cout << transfer_char;
 
-        encrypted_sentence[a]=transfer_char;
-        a++;
+
 
 
         #ifdef COMMENTS_ON
         cout << "The encrypted character is " << transfer_char <<endl;
+        encrypted_sentence[a]=transfer_char;
+        a++;
         #endif
 
 
@@ -175,6 +184,7 @@ int main(int argc, char** argv){
         cout<< encrypted_sentence[i];
 
     }
+    cout << endl; //print blank line at end for readability
     #endif
 
 

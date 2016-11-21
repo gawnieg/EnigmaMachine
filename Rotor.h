@@ -17,7 +17,7 @@ public:
     //constructors
 
     Rotor();
-    int Rotor_load(const char* filename, const char* pos_file, int rotornumber);
+    int Rotor_load(const char* filename, const char* pos_file, int rotornumber, int (&numberofrotationsarray)[5]);
 
 
     bool rotate(int whatrotor, int (&numberofrotationsarray)[5]);
@@ -37,6 +37,7 @@ int pos_array[5]; //enigma class should really hold the position array
 
 bool sets_position = false;
 int rotate_marker=0; //marker for where the rotor rotates from
+int starting_rotate_marker=0; ///marker to account for offset starting position
 
 
 
