@@ -28,7 +28,7 @@ public:
         int rotornumber); /*maps the inputted character, way_back is to indicate\
          what direction the character is travelling. true for on the way back
     and returns the output according to how the rotor array is established*/
-
+    ~Rotor();
 
 
 

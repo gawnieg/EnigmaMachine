@@ -6,7 +6,6 @@
 #include "Plugboard.h"
 #include "Reflector.h"
 #include "Enigma.h"
-#include <algorithm>
 #include "errors.h"
 
 
@@ -54,43 +53,21 @@ int main(int argc, char** argv){
 
     Rotor* rotor_r[mainnumrotors];
     for(int i =0; i < mainnumrotors; i++ ){
-
         rotor_r[i] = new Rotor();
-        // rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber,enigma.number_rot_comp);
-        // rotornumber++;
-
     }
-Enigma enigma(plugb,reflec,rotor_r, mainnumrotors); // the 2 is the number of rotors
 
-for(int i =0; i < mainnumrotors; i++ ){
+    Enigma enigma(plugb,reflec,rotor_r, mainnumrotors); // the 2 is the number of rotors
 
-    errorcode=rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber,enigma.number_rot_comp);
-    if(errorcode!=0){
-        return errorcode;
+    for(int i =0; i < mainnumrotors; i++ ){
+        errorcode=rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber,enigma.number_rot_comp);
+        if(errorcode!=0){
+            return errorcode;
+        }
+        rotornumber++;
     }
-    rotornumber++;
-
-}
-
-
-
     char input_char;
 
-    //cout << "please input an sentence to be encrypted, terminated by a full stop" << endl;
-
-    #ifdef COMMENTS_ON
-    char encrypted_sentence [500];
-    int a=0;
-    #endif
-
-
     while(cin  >>ws>>  input_char){
-        #ifdef COMMENTS_ON
-        if(input_char=='.'){
-            break;
-        }
-        #endif
-
         if( (int)input_char < 65|| (int)input_char >90 ){
             cerr << input_char<< " is not a valid input character (input characters must be upper case letters A-Z)!"<<endl;
             return (INVALID_INPUT_CHARACTER);
@@ -126,11 +103,6 @@ for(int i =0; i < mainnumrotors; i++ ){
 
     */
 
-
-
-
-
-
         //send to plugboard
         transfer_char = plugb->plugboard_convert(transfer_char);
         ///section for way out mapping
@@ -154,18 +126,11 @@ for(int i =0; i < mainnumrotors; i++ ){
 
     }
 
+    if(errorcode==0){
+        delete plugb;
+        delete reflec;
+    }
 
-
-if(errorcode==0){
-    delete plugb;
-    delete reflec;
-
-}
-// if(norotors==false){
-//     delete rotor_r ;
-// }
-
-
-return (NO_ERROR);
+    return (NO_ERROR);
 
 } //END OF MAIN
