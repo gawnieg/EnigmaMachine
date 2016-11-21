@@ -202,8 +202,6 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
     //was rotorarray[0]== rotatemarker
     if(starting_rotate_marker== numberofrotationsarray[whatrotor]||\
         numberofrotationsarray[whatrotor]%rotate_marker == 0){
-        cout << "requesting rotation of second rotor " << endl;
-        cout << "numberofrotationsarray" << numberofrotationsarray[whatrotor] <<endl;
         return true;
 
     }
@@ -237,7 +235,7 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     }
 
     if(in_pos.peek()==std::ifstream::traits_type::eof()){
-        cerr << "FILE EMPTY" <<endl;
+        cerr << "No starting position for rotor 0 in rotor position file: rotor.pos" <<endl;
         return (NO_ROTOR_STARTING_POSITION);
     }
 
@@ -259,6 +257,7 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
 
 
     int pos_counter=0;
+    in_pos.open(pos_file);
     while(!in_pos.eof()){
         in_pos  >>  pos_array[pos_counter];
 
@@ -282,10 +281,20 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
     if(in.fail()){
         return (ERROR_OPENING_CONFIGURATION_FILE);
     }
-
+    char testing_char;
+    // in.open(filename);
+    if (in.is_open()) {
+      while (in >> testing_char) {
+        if (!isdigit(testing_char)) {
+            cerr << "Non-numeric character for mapping in rotor file rotor.rot" <<endl;
+            return NON_NUMERIC_CHARACTER;
+        }
+      }
+    }
+    in.close();
 
     int counter=0;
-
+    in.open(filename);
     while(!in.eof()){
 
         in >>ws >>  rotorarray[counter];
@@ -311,18 +320,13 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         counter++;
 
     }
-
-    char testing_char;
-    in.open(filename);
-    if (in.is_open()) {
-      while (in >> testing_char) {
-        if (!isdigit(testing_char)) {
-            cerr << "Non-numeric character for mapping in rotor file rotor.rot" <<endl;
-            return NON_NUMERIC_CHARACTER;
-        }
-      }
-    }
     in.close();
+
+
+
+
+
+
 
     //setting the last character as the rotate marker
     rotate_marker=rotorarray[26];
@@ -333,7 +337,7 @@ int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumbe
         return(INVALID_ROTOR_MAPPING);
     }
 
-    in.close();
+
 
 
     #ifdef COMMENTS_ON
