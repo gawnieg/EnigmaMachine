@@ -24,9 +24,11 @@ int main(int argc, char** argv){
     int errorcode=0;
 
     if(argc < 3){
+        cerr << "usage: enigma plugboard-file reflector-file (<rotor-file>* rotor-positions)?"<<endl;
         return (INSUFFICIENT_NUMBER_OF_PARAMETERS);
     }
     if(argc==4){
+        cerr << "usage: enigma plugboard-file reflector-file (<rotor-file>* rotor-positions)?"<<endl;
         return (INSUFFICIENT_NUMBER_OF_PARAMETERS);
     }
 
@@ -37,8 +39,9 @@ int main(int argc, char** argv){
 
 
 
-    Plugboard *plugb = new Plugboard();//will need to error check to see if this is the right array member being passed
+    Plugboard *plugb = new Plugboard();
     errorcode = plugb->Plugboard_load(argv[1]);
+
     if(errorcode!=0){
         return errorcode;
     }
@@ -61,7 +64,10 @@ Enigma enigma(plugb,reflec,rotor_r, mainnumrotors); // the 2 is the number of ro
 
 for(int i =0; i < mainnumrotors; i++ ){
 
-    rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber,enigma.number_rot_comp);
+    errorcode=rotor_r[i]->Rotor_load(argv[(argc-2-i)],argv[argc-1],rotornumber,enigma.number_rot_comp);
+    if(errorcode!=0){
+        return errorcode;
+    }
     rotornumber++;
 
 }

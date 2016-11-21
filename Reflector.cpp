@@ -106,20 +106,27 @@ int Reflector::Reflector_load(const char* filename){
   	  	if (in.is_open()) {
   	  	while (in >> test_char) {
   	      	if (!isdigit(test_char)) {
-  				cerr<< "NON_NUMERIC_CHARACTER" <<endl;
+  				cerr<< "Non-numeric character in reflector file reflector.rf" <<endl;
   				return (NON_NUMERIC_CHARACTER);
   	      }
   	    }
   	  }
   	  in.close();
 
-
+	  if(counter % 2 !=0){
+	  	cerr<<"Incorrect (odd) number of parameters in reflector file reflector.rf"<<endl;
+	  	return(INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS);
+	  }
 
         //check if correct number of pairs
         if(counter != 26){
+			cerr<<"Insufficient number of mappings in reflector file: reflector.rf"<<endl;
             return(INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS);
 
         }
+
+
+
         #ifdef COMMENTS_ON
         for(int i =0; i < counter; i++){
 
