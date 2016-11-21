@@ -4,8 +4,8 @@
 #include "Rotor.h"
 #include "errors.h"
 //
-// #define COMMENTS_ON
-// #define ARRAYPRINTING
+#define COMMENTS_ON
+#define ARRAYPRINTING
 
 
 using namespace std;
@@ -196,11 +196,14 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
     rotor . true if notch reached, false if not */
 #ifdef COMMENTS_ON
     cout << "rotate_marker for this rotor is " << rotate_marker <<endl;
+
 #endif
 
     //was rotorarray[0]== rotatemarker
     if(starting_rotate_marker== numberofrotationsarray[whatrotor]||\
-        numberofrotationsarray[whatrotor]%rotate_marker == 0){ // -1 on rhs IF THE TOP POSITION IS EQUAL TO THE NOTCH T
+        numberofrotationsarray[whatrotor]%rotate_marker == 0){
+        cout << "requesting rotation of second rotor " << endl;
+        cout << "numberofrotationsarray" << numberofrotationsarray[whatrotor] <<endl;
         return true;
 
     }
@@ -226,12 +229,21 @@ cout << "Printing rotor array" << endl;
 
 int Rotor::Rotor_load(const char* filename, const char* pos_file, int rotornumber, int (&number_rot_comp)[5]){
 
-    sets_position =true;
+
     ifstream in_pos;
     in_pos.open(pos_file);
     if(in_pos.fail()){
         return (ERROR_OPENING_CONFIGURATION_FILE);
     }
+
+    if(in_pos.peek()==std::ifstream::traits_type::eof()){
+        cerr << "FILE EMPTY" <<endl;
+        return (NO_ROTOR_STARTING_POSITION);
+    }
+
+
+
+
     char test_char;
 
     if (in_pos.is_open()) {
