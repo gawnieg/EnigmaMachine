@@ -18,18 +18,24 @@ class Enigma{
 public:
     //constructors
     Enigma(Plugboard* plugboard, Reflector* reflector, Rotor* rotorarray[5], int numberofrotors);
-
+    int rotor_index_enigma =0;
+	int number_of_rotors_enigma;
 
 	Plugboard* plugboard;
 	Reflector* reflector;
-	Rotor* rotorarray[5];
+	Rotor* rotorarray[5]; // was 5
+	
+	
+	// consider what happens when you set the initial positioning! \
+	must set the number_rot_comp array?
+	//also consider what happens to the notches. 
 
 
-    char encode(char input_char_to_be_encrypted);
+
+
     int number_rot_comp[5]={0,0,0,0,0};
 
-    int rotor_index_enigma =0;
-int number_of_rotors_enigma;
+
 
 private:
 

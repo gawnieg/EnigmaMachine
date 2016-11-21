@@ -24,37 +24,22 @@ Enigma::Enigma(Plugboard* _plugboard, Reflector* _reflector, Rotor* _rotorarray[
 
 
 
-
+	/*
         for(int i=0; i <5; i++){ // up to 5 rotor members
             rotorarray[i] = _rotorarray[i]; //THIS LINE IS PROBLEMATIC, what am i trying to do here?
         }
-
+	*/
+	
 
     number_of_rotors_enigma= _numberofrotors;
+	
+		for(int i=0;i<=number_of_rotors_enigma; i++){
+			rotorarray[i]=_rotorarray[i];
+	}
 
 
 
 
 }
 
-char Enigma::encode(char input_char_to_be_encrypted){
-    /* this function should take in the input character and pass it through the
-    plugboard, rotor and then reflector back through the rotor and plugboard
-    and then give back out the character it arrives at. It should then rotate the
-    rotors as they should be rotated.
-    */
 
-    ///temporary section until get rotorindex functioning correctly in the constructor
-
-
-
-
-
-
-    char transfer_char;
-
-
-
-
-    return transfer_char;
-} // end bracket for encode function

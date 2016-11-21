@@ -12,8 +12,7 @@ using namespace std;
 
 
 
-
-    Rotor::Rotor(){
+Rotor::Rotor(){
 
         //intentionally blank
 
@@ -200,7 +199,8 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
 #endif
 
     //was rotorarray[0]== rotatemarker
-    if(rotate_marker== numberofrotationsarray[whatrotor]){ // -1 on rhs IF THE TOP POSITION IS EQUAL TO THE NOTCH T
+    if(rotate_marker== numberofrotationsarray[whatrotor]||\
+        numberofrotationsarray[whatrotor]%rotate_marker == 0){ // -1 on rhs IF THE TOP POSITION IS EQUAL TO THE NOTCH T
         return true;
 
     }
@@ -211,7 +211,7 @@ bool Rotor::rotate(int whatrotor , int (&numberofrotationsarray)[5]){
 
 }
 
-void Rotor::printrotorarray(int rotorarray[30]){
+void Rotor::printrotorarray(int const (&rotorarray)[30]){
 #ifdef ARRAYPRINTING
 cout << "Printing rotor array" << endl;
     for(int i=0; i<26; i++){

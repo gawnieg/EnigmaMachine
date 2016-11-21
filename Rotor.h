@@ -40,7 +40,7 @@ int rotate_marker=0; //marker for where the rotor rotates from
 
 
 
-void printrotorarray(int rotorarray[30]);
+void printrotorarray(int const  (&rotorarray)[30]);
 
 
 
